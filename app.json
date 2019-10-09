@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Arthur Murray Franchisee",
+    "description": "Mobile native app for Arthur Murray Franchisee",
+    "slug": "arthur-murray-franchisee",
+    "privacy": "unlisted",
+    "sdkVersion": "35.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "assets/**"
+    ],
+    "ios": {
+      "bundleIdentifier": "org.arthurmurrayfranchisee.app",
+      "supportsTablet": true,
+      "buildNumber": "1",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "org.arthurmurrayfranchisee.app",
+      "versionCode": 1,
+      "permissions": []
+    }
+  }
+}

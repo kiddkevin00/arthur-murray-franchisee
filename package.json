@@ -1,0 +1,76 @@
+{
+  "main": "./node_modules/expo/AppEntry.js",
+  "description": "Mobile native app for Arthur Murray Franchisee Shop",
+  "scripts": {
+    "start": "expo start --lan -c",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "test": "jest --watchAll",
+    "lint": "eslint --format 'node_modules/eslint-friendly-formatter' --ext .js,.jsx components/ containers/ actionCreators/ actionTypes/ reducers/ store/ utils/ navigation/ constants/ App.js bin/ __tests__/",
+    "debugger": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'",
+    "clean": "watchman watch-del-all && rm -rf package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install && say I love react native"
+  },
+  "husky": {
+    "hooks": {
+      "_pre-push": "npm run lint && ./bin/no-push-master.sh"
+    }
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "engines": {
+    "node": "10.16.0",
+    "npm": ">=6.9.0"
+  },
+  "dependencies": {
+    "@expo/samples": "~3.0.3",
+    "@expo/vector-icons": "10.0.5",
+    "@react-navigation/web": "^1.0.0-alpha.9",
+    "axios": "0.19.0",
+    "expo": "35.0.0",
+    "expo-asset": "7.0.0",
+    "expo-constants": "7.0.0",
+    "expo-font": "7.0.0",
+    "expo-web-browser": "7.0.0",
+    "native-base": "2.13.4",
+    "prop-types": "15.6.2",
+    "react": "16.8.3",
+    "react-dom": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-gesture-handler": "1.3.0",
+    "react-native-status-bar-height": "2.3.1",
+    "react-native-web": "^0.11.7",
+    "react-navigation": "3.12.0",
+    "react-redux": "6.0.1",
+    "redux": "4.0.1",
+    "redux-thunk": "2.3.0",
+    "uuid": "3.3.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-preset-expo": "7.0.0",
+    "eslint": "4.14.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-friendly-formatter": "2.0.7",
+    "eslint-import-resolver-webpack": "0.8.3",
+    "eslint-plugin-chai-expect": "1.1.1",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-react": "7.4.0",
+    "jest-expo": "^35.0.0",
+    "husky": "3.0.1",
+    "prettier": "1.18.2",
+    "react-test-renderer": "16.8.6"
+  },
+  "author": "Marcus Hsu",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kiddkevin00/arthur-murray-franchisee.git"
+  },
+  "private": true
+}
