@@ -6,9 +6,11 @@ const { ME } = actionTypes;
 const mainInitialState = {
   id: undefined,
   email: undefined,
-  fullName: undefined,
-  userType: undefined,
-  phoneNumber: undefined,
+  first_name: undefined,
+  last_name: undefined,
+  studio: undefined,
+  created_at: undefined,
+  enabled: undefined,
 };
 
 const mainReducer = (state = mainInitialState, action) => {

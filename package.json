@@ -10,7 +10,7 @@
     "test": "jest --watchAll",
     "lint": "eslint --format 'node_modules/eslint-friendly-formatter' --ext .js,.jsx components/ containers/ actionCreators/ actionTypes/ reducers/ store/ utils/ navigation/ constants/ App.js bin/ __tests__/",
     "debugger": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'",
-    "clean": "watchman watch-del-all && rm -rf package-lock.json && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && npm install && say I love react native"
+    "clean": "watchman watch-del-all && rm -rf package-lock.json && rm -rf node_modules && rm -rf ios/build/* && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/react-* && rm -rf $TMPDIR/haste-map-* && npm install"
   },
   "husky": {
     "hooks": {

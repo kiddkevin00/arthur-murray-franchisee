@@ -5,17 +5,23 @@ const supportedErrorCodes = {
   SOME_SUPPORTED_ERROR_CODE: 'SOME_SUPPORTED_ERROR_CODE',
 };
 
-const instantiateErrorWithCodeAndMsg = ({ code, message }) => {
+const instantiateErrorWithCodeAndMsg = ({ code, message, original }) => {
   const error = new Error(message);
 
   error.code = code;
+  error.original = original;
 
   return error;
 };
-const getErrorCodeAndMsg = (error = {}) => ({
-  code: supportedErrorCodes[error.code] || 'UNKNOWN_ERROR',
-  message: error.message || error,
-});
+const getErrorCodeAndMsg = (error = {}) => {
+  const errorMsg = error.message || error;
+
+  return {
+    code: supportedErrorCodes[error.code] || 'UNKNOWN_ERROR',
+    message: typeof errorMsg === 'object' ? window.JSON.stringify(errorMsg, null, 2) : errorMsg,
+    original: error,
+  };
+};
 const extractErrorFromResponse = error => error.response && error.response.data;
 const getError = error =>
   instantiateErrorWithCodeAndMsg(getErrorCodeAndMsg(extractErrorFromResponse(error)));

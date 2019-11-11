@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 
 import ExpoIcon from '../components/ExpoIcon';
-import HomeScreen from '../containers/Home';
+import LoginScreen from '../containers/Profile/Login';
+import DetailScreen from '../containers/Profile/Detail';
 import LinksScreen from '../containers/Links';
 import SettingsScreen from '../containers/Settings';
 import colors from '../constants/colors';
@@ -14,24 +15,25 @@ const platformSpecificConfig = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const ProfileStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Login: LoginScreen,
+    Detail: DetailScreen,
   },
   {
     ...platformSpecificConfig,
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
     defaultNavigationOptions: {
       headerTitle: 'Arthur Murray Franchisee',
     },
   }
 );
 
-HomeStack.navigationOptions = ({ navigation }) => {
+ProfileStack.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   let tabBarVisible;
 
-  if (routeName === 'SOME_ROUTE') {
+  if (routeName === 'Login') {
     tabBarVisible = false;
   } else {
     tabBarVisible = true;
@@ -39,11 +41,11 @@ HomeStack.navigationOptions = ({ navigation }) => {
 
   return {
     tabBarVisible,
-    tabBarLabel: 'Home',
+    tabBarLabel: 'Profile',
     tabBarIcon: ({ focused }) => (
       <ExpoIcon
-        name="cow"
-        type="MaterialCommunityIcons"
+        name="profile"
+        type="AntDesign"
         color={focused ? colors.tabIconSelected : colors.tabIconDefault}
         style={{ marginBottom: -3 }}
       />
@@ -51,7 +53,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
   };
 };
 
-HomeStack.path = '';
+ProfileStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
@@ -131,11 +133,16 @@ SettingsStack.navigationOptions = ({ navigation }) => {
 
 SettingsStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+const tabNavigator = createBottomTabNavigator(
+  {
+    Profile: ProfileStack,
+    Link: LinksStack,
+    Settings: SettingsStack,
+  },
+  {
+    initialRouteName: 'Profile',
+  }
+);
 
 tabNavigator.path = '';
 
