@@ -1,25 +1,33 @@
+import AppView from './src/modules/AppViewContainer';
+import { store, persistor } from './src/redux/store';
+//import { colors } from './src/styles';
+import colors from './src/styles/colors'; // TODO
 import AppNavigator from './navigation/AppNavigator';
-import configureStore from './store/';
 import { Root } from 'native-base';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const loadResourcesAsync = async () => {
   await Promise.all([
     Asset.loadAsync([
-      require('./assets/images/robot-dev.png'),
-      require('./assets/images/robot-prod.png'),
+      //require('./assets/images/robot-dev.png'),
     ]),
     Font.loadAsync({
       // This is the font that we are using for our tab bar
       ...Ionicons.font,
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
+      'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
+      'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
+      'Lato-SemiBold': require('./assets/fonts/Lato-Semibold.ttf'),
     }),
   ]);
 };
@@ -33,8 +41,6 @@ const handleLoadingError = error => {
 const handleFinishLoading = setLoadingComplete => {
   setLoadingComplete(true);
 };
-
-const store = configureStore();
 
 const App = props => {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -51,7 +57,16 @@ const App = props => {
   return (
     <Root>
       <Provider store={store}>
-        <AppNavigator />
+        <PersistGate
+          loading={
+            <View style={styles.container}>
+              <ActivityIndicator color={colors.red} />
+            </View>
+          }
+          persistor={persistor}
+        >
+          <AppView />
+        </PersistGate>
       </Provider>
     </Root>
   );
@@ -64,5 +79,14 @@ App.propTypes = {
 App.defaultProps = {
   skipLoadingScreen: undefined,
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+});
 
 export { App as default };

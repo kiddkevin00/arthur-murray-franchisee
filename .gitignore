@@ -28,11 +28,13 @@ DerivedData
 .gradle
 local.properties
 *.iml
+!/android/app/debug.keystore
 
 # node.js
 #
 node_modules/
 package-lock.json
+yarn.lock
 npm-debug.log
 yarn-error.log
 
