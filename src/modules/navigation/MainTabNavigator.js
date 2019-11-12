@@ -57,79 +57,41 @@ const styles = StyleSheet.create({
 
 export default createBottomTabNavigator(
   {
-    Home: {
+    Reports: {
+      screen: GridsScreen,
+    },
+    Profile: {
+      screen: PagesScreen,
+    },
+    Events: {
+      screen: ComponentsScreen,
+    },
+    Payments: {
       screen: HomeScreen,
-      navigationOptions: {
-        header: null,
-      },
     },
     //Calendar: {
     //  screen: CalendarScreen,
-    //  navigationOptions: {
-    //    header: (
-    //      <View style={styles.headerContainer}>
-    //        <Image style={styles.headerImage} source={headerBackground} />
-    //        <Text style={styles.headerCaption}>Calendar</Text>
-    //      </View>
-    //    ),
-    //  },
     //},
-    Grids: {
-      screen: GridsScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image style={styles.headerImage} source={headerBackground} />
-            <Text style={styles.headerCaption}>Grids</Text>
-          </View>
-        ),
-      },
-    },
-    Pages: {
-      screen: PagesScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image style={styles.headerImage} source={headerBackground} />
-            <Text style={styles.headerCaption}>Pages</Text>
-          </View>
-        ),
-      },
-    },
-    Components: {
-      screen: ComponentsScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image style={styles.headerImage} source={headerBackground} />
-            <Text style={styles.headerCaption}>Components</Text>
-          </View>
-        ),
-      },
-    },
   },
   {
-    initialRouteName: 'Grids',
+    initialRouteName: 'Reports',
     defaultNavigationOptions: ({ navigation }) => ({
       // eslint-disable-next-line react/prop-types
       tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
         let iconSource;
         switch (routeName) {
-          case 'Home':
+          case 'Reports':
             iconSource = iconHome;
             break;
-          case 'Calendar':
+          case 'Profile':
             iconSource = iconCalendar;
             break;
-          case 'Grids':
+          case 'Events':
             iconSource = iconGrids;
             break;
-          case 'Pages':
+          case 'Payments':
             iconSource = iconPages;
-            break;
-          case 'Components':
-            iconSource = iconComponents;
             break;
           default:
             iconSource = iconComponents;

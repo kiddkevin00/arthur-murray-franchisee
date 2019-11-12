@@ -38,7 +38,7 @@ export default function HomeScreen({ isExtended, setIsExtended }) {
             The smartest Way to build your mobile app
           </Text>
           <Text size={30} bold style={styles.title}>
-            React Native Starter
+            Arthur Murray Franchisee
           </Text>
         </View>
         <View style={[styles.section, styles.sectionLarge]}>

@@ -17,7 +17,7 @@ export default function ProfileScreen() {
           <Text style={styles.title}>Jane SIMPSON</Text>
           <View>
             <Text style={styles.position}>UI/UX Designer</Text>
-            <Text style={styles.company}>React Native Starter</Text>
+            <Text style={styles.company}>Arthur Murray Franchisee</Text>
           </View>
         </View>
         <View style={{ flexDirection: 'row' }}>
@@ -92,7 +92,7 @@ export default function ProfileScreen() {
               size={20}
               color="#c3c3c3"
             />
-            <Text>React Native Starter</Text>
+            <Text>Arthur Murray Franchisee</Text>
           </View>
         </View>
 
