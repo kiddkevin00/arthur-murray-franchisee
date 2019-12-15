@@ -10,14 +10,14 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <ImageBackground
         resizeMode="cover"
-        source={require('../../../assets/images/avatar.png')}
+        source={require('../../../assets/images/me.png')}
         style={[styles.section, styles.header]}
       >
         <View style={{ flex: 1, justifyContent: 'center' }}>
-          <Text style={styles.title}>Jane SIMPSON</Text>
+          <Text style={styles.title}>Frederic Havez</Text>
           <View>
-            <Text style={styles.position}>UI/UX Designer</Text>
-            <Text style={styles.company}>Arthur Murray Franchisee</Text>
+            <Text style={styles.position}>Professional Dancer</Text>
+            <Text style={styles.company}>USA</Text>
           </View>
         </View>
         <View style={{ flexDirection: 'row' }}>
@@ -29,6 +29,7 @@ export default function ProfileScreen() {
             onPress={() => {}}
           />
 
+          {/*
           <Button
             rounded
             bordered
@@ -37,6 +38,7 @@ export default function ProfileScreen() {
             caption="Follow"
             onPress={() => {}}
           />
+          */}
         </View>
       </ImageBackground>
       <View style={styles.section}>
@@ -47,18 +49,18 @@ export default function ProfileScreen() {
           style={[styles.quickFacts, { backgroundColor: colors.profileGradientStart }]}
         >
           <View style={styles.quickInfoItem}>
-            <Text style={styles.quickInfoText}>112</Text>
-            <Text style={styles.quickInfoText}>Projects</Text>
+            <Text style={styles.quickInfoText}>99</Text>
+            <Text style={styles.quickInfoText}>Competitions</Text>
           </View>
 
           <View style={styles.quickInfoItem}>
-            <Text style={styles.quickInfoText}>1.3k</Text>
-            <Text style={styles.quickInfoText}>Followers</Text>
+            <Text style={styles.quickInfoText}>78</Text>
+            <Text style={styles.quickInfoText}>Awards</Text>
           </View>
 
           <View style={styles.quickInfoItem}>
-            <Text style={styles.quickInfoText}>816</Text>
-            <Text style={styles.quickInfoText}>Following</Text>
+            <Text style={styles.quickInfoText}>215</Text>
+            <Text style={styles.quickInfoText}>Students</Text>
           </View>
         </View>
 
@@ -70,7 +72,7 @@ export default function ProfileScreen() {
               size={20}
               color="#c3c3c3"
             />
-            <Text>Paris, France</Text>
+            <Text>New York, USA</Text>
           </View>
           <View style={styles.hr} />
 
@@ -81,7 +83,7 @@ export default function ProfileScreen() {
               size={20}
               color="#c3c3c3"
             />
-            <Text>rns</Text>
+            <Text>@FredericH</Text>
           </View>
           <View style={styles.hr} />
 
@@ -92,32 +94,8 @@ export default function ProfileScreen() {
               size={20}
               color="#c3c3c3"
             />
-            <Text>Arthur Murray Franchisee</Text>
+            <Text>@DanceComp</Text>
           </View>
-        </View>
-
-        <View style={styles.bottomRow}>
-          <ImageBackground
-            style={styles.bottomImage}
-            source={require('../../../assets/images/photos.jpeg')}
-          >
-            <Text style={styles.quickInfoText}>+150</Text>
-            <Text style={styles.quickInfoText} styleName="bright">
-              Photos
-            </Text>
-          </ImageBackground>
-          <ImageBackground
-            style={styles.bottomImage}
-            source={require('../../../assets/images/social.jpeg')}
-          >
-            <Text style={styles.quickInfoText}>SOCIAL</Text>
-          </ImageBackground>
-          <ImageBackground
-            style={styles.bottomImage}
-            source={require('../../../assets/images/projects.jpg')}
-          >
-            <Text style={styles.quickInfoText}>PROJECTS</Text>
-          </ImageBackground>
         </View>
       </View>
     </View>

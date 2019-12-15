@@ -60,7 +60,7 @@ export default createBottomTabNavigator(
     Reports: {
       screen: GridsScreen,
     },
-    Profile: {
+    Pages: {
       screen: PagesScreen,
     },
     Events: {
@@ -84,7 +84,7 @@ export default createBottomTabNavigator(
           case 'Reports':
             iconSource = iconHome;
             break;
-          case 'Profile':
+          case 'Pages':
             iconSource = iconCalendar;
             break;
           case 'Events':
