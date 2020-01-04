@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   titleDescription: {
     color: colors.introText,
     textAlign: 'center',
-    fontFamily: fonts.secondaryRegular,
+    fontFamily: fonts.primaryRegular,
     fontSize: 15,
   },
   title: {

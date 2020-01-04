@@ -132,7 +132,6 @@ export default class GridsScreen extends React.Component {
             items={this.props.tabs}
             onChange={this.props.setTabIndex}
             underline
-            mainColor={colors.primary}
           />
         </View>
         <FlatList
@@ -142,7 +141,7 @@ export default class GridsScreen extends React.Component {
               : `${item[0] && item[0].id}`
           }
           style={{
-            backgroundColor: colors.background,
+            backgroundColor: colors.whiteTwo,
             paddingHorizontal: 15,
           }}
           data={groupedData}
@@ -156,7 +155,7 @@ export default class GridsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.white,
   },
   tabsContainer: {
     alignSelf: 'stretch',
@@ -166,8 +165,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get('window').width / 2 - 25,
     borderRadius: 10,
-    backgroundColor: colors.backgroundLight,
-    shadowColor: colors.background,
+    backgroundColor: colors.white,
+    shadowColor: colors.primary,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -189,17 +188,15 @@ const styles = StyleSheet.create({
   itemOneTitle: {
     fontFamily: fonts.primaryRegular,
     fontSize: 15,
-    color: colors.white,
   },
   itemOneSubTitle: {
     fontFamily: fonts.primaryRegular,
-    color: colors.primary,
     fontSize: 13,
+    color: '#B2B2B2',
     marginVertical: 3,
   },
   itemOnePrice: {
     fontFamily: fonts.primaryRegular,
-    color: colors.white,
     fontSize: 15,
   },
   itemOneRow: {
@@ -213,7 +210,7 @@ const styles = StyleSheet.create({
   },
   itemTwoContainer: {
     paddingBottom: 10,
-    backgroundColor: colors.background,
+    backgroundColor: colors.whiteTwo,
     marginVertical: 5,
   },
   itemTwoContent: {
@@ -254,10 +251,10 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   itemThreeContainer: {
-    backgroundColor: colors.backgroundLight,
+    backgroundColor: colors.white,
     padding: 10,
     borderRadius: 10,
-    shadowColor: colors.background,
+    shadowColor: colors.primary,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -289,12 +286,12 @@ const styles = StyleSheet.create({
   itemThreeTitle: {
     fontFamily: fonts.primaryBold,
     fontSize: 16,
-    color: colors.white,
+    color: '#5F5F5F',
   },
   itemThreeSubtitle: {
     fontFamily: fonts.primaryRegular,
     fontSize: 12,
-    color: colors.primary,
+    color: '#a4a4a4',
   },
   itemThreeMetaContainer: {
     flexDirection: 'row',
@@ -304,7 +301,7 @@ const styles = StyleSheet.create({
   itemThreePrice: {
     fontFamily: fonts.primaryRegular,
     fontSize: 15,
-    color: colors.white,
+    color: '#5f5f5f',
     textAlign: 'right',
   },
   itemThreeHr: {

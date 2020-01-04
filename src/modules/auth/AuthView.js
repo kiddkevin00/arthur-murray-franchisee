@@ -132,7 +132,7 @@ export default class AuthScreen extends React.Component {
               <Button
                 bgColor={colors.secondary}
                 textColor="white"
-                rounded
+                primary
                 style={{ alignSelf: 'stretch', marginBottom: 10 }}
                 caption={
                   this.state.formState === FORM_STATES.LOGIN
@@ -146,27 +146,24 @@ export default class AuthScreen extends React.Component {
                 <View style={styles.socialLoginContainer}>
                   <Button
                     style={styles.socialButton}
-                    bgColor={colors.primary}
-                    rounded
                     bordered
+                    bgColor={colors.primary}
                     icon={require('../../../assets/images/google-plus.png')}
                     iconColor={colors.primary}
                     onPress={() => this.props.navigation.goBack()}
                   />
                   <Button
                     style={[styles.socialButton, styles.socialButtonCenter]}
-                    bgColor={colors.primary}
-                    rounded
                     bordered
+                    bgColor={colors.primary}
                     icon={require('../../../assets/images/twitter.png')}
                     iconColor={colors.primary}
                     onPress={() => this.props.navigation.goBack()}
                   />
                   <Button
                     style={styles.socialButton}
-                    bgColor={colors.primary}
-                    rounded
                     bordered
+                    bgColor={colors.primary}
                     icon={require('../../../assets/images/facebook.png')}
                     iconColor={colors.primary}
                     onPress={() => this.props.navigation.goBack()}
@@ -232,8 +229,9 @@ const styles = StyleSheet.create({
   },
   middle: {
     flex: 2,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignSelf: 'stretch',
+    paddingTop: 20,
   },
   bottom: {
     flex: 1,
