@@ -23,6 +23,7 @@ const colors = {
   green: '#6DD0A3',
   yellow: '#ffc247',
   textInputColor: '#007BFC',
+  placeholderTextInputColor: 'rgba(0, 123, 252, 0.5)',
   labelOne: '#3CD4A0',
   labelTwo: '#FA7E9D',
 };

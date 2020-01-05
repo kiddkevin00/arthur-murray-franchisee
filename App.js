@@ -2,7 +2,6 @@ import AppView from './src/modules/AppViewContainer';
 import { store, persistor } from './src/redux/store';
 //import { colors } from './src/styles';
 import colors from './src/styles/colors'; // TODO
-import AppNavigator from './navigation/AppNavigator';
 import { Root } from 'native-base';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';

@@ -1,23 +1,19 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import { Image, View, StyleSheet, Text } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 
 import { colors, fonts } from '../../styles';
 
-import HomeScreen from '../home/HomeViewContainer';
-//import CalendarScreen from '../calendar/CalendarViewContainer';
+import ProfileScreen from '../profile/ProfileViewContainer';
 import GridsScreen from '../grids/GridsViewContainer';
-import PagesScreen from '../pages/PagesViewContainer';
-import ComponentsScreen from '../components/ComponentsViewContainer';
+import ChartsScreen from '../charts/ChartsViewContainer';
 
 const iconHome = require('../../../assets/images/tabbar/home.png');
 const iconCalendar = require('../../../assets/images/tabbar/calendar.png');
 const iconGrids = require('../../../assets/images/tabbar/grids.png');
 const iconPages = require('../../../assets/images/tabbar/pages.png');
 const iconComponents = require('../../../assets/images/tabbar/components.png');
-
-const headerBackground = require('../../../assets/images/topBarBg.png');
 
 const styles = StyleSheet.create({
   tabBarItemContainer: {
@@ -60,18 +56,15 @@ export default createBottomTabNavigator(
     Reports: {
       screen: GridsScreen,
     },
-    Pages: {
-      screen: PagesScreen,
-    },
     Events: {
-      screen: ComponentsScreen,
+      screen: GridsScreen,
     },
     Payments: {
-      screen: HomeScreen,
+      screen: ChartsScreen,
     },
-    //Calendar: {
-    //  screen: CalendarScreen,
-    //},
+    Profile: {
+      screen: ProfileScreen,
+    },
   },
   {
     initialRouteName: 'Reports',
@@ -80,18 +73,19 @@ export default createBottomTabNavigator(
       tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
         let iconSource;
+
         switch (routeName) {
           case 'Reports':
             iconSource = iconHome;
             break;
-          case 'Pages':
-            iconSource = iconCalendar;
+          case 'Profile':
+            iconSource = iconPages;
             break;
           case 'Events':
-            iconSource = iconGrids;
+            iconSource = iconCalendar;
             break;
           case 'Payments':
-            iconSource = iconPages;
+            iconSource = iconGrids;
             break;
           default:
             iconSource = iconComponents;

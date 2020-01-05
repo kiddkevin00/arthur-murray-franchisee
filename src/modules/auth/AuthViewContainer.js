@@ -1,7 +1,29 @@
-// @flow
+import { authActionCreator as actionCreator } from './AuthState';
+import AuthView from './AuthView';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
-import AuthView from './AuthView';
+export default compose(
+  connect(
+    state => ({
+      formEmail: state.auth.form.email.value,
+      formPassword: state.auth.form.password.value,
+      isErrorVisible: state.auth.updateData.error.isVisible,
+      errorMessage: state.auth.updateData.error.message,
+      isUpdatingData: state.auth.updateData.isUpdatingData,
+    }),
+    dispatch => ({
+      dispatchResetState() {
+        dispatch(actionCreator.resetState());
+      },
 
-export default compose(connect())(AuthView);
+      dispatchSetFormField(field, value) {
+        dispatch(actionCreator.setFormField(field, value));
+      },
+
+      dispatchLogin(email, password, navigation) {
+        dispatch(actionCreator.login(email, password, navigation));
+      },
+    }),
+  )
+)(AuthView);

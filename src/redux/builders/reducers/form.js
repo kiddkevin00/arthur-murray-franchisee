@@ -1,5 +1,5 @@
 import buildNamedWrapperReducer from './namedWrapper';
-import actionTypes from '../../actionTypes';
+import actionTypes from '../actionTypes/';
 
 const { FORM } = actionTypes;
 

@@ -38,14 +38,15 @@ const stackNavigator = createStackNavigator(
       screen: ProfileScreen,
       navigationOptions: {
         title: 'Profile',
+        headerLeft: null,
       },
     },
-    Gallery: {
-      screen: GalleryScreen,
-      navigationOptions: {
-        title: 'Gallery',
-      },
-    },
+    //Gallery: {
+    //  screen: GalleryScreen,
+    //  navigationOptions: {
+    //    title: 'Gallery',
+    //  },
+    //},
     Article: {
       screen: ArticleScreen,
       navigationOptions: {

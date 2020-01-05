@@ -15,15 +15,6 @@ const actionTypes = {
     SUCCESS: 'UPDATE_DATA.SUCCESS',
     FAILURE: 'UPDATE_DATA.FAILURE',
   },
-  ME: {
-    RESET_STATE: 'ME.RESET_STATE',
-    SET_DATA: 'ME.SET_DATA',
-  },
-  LOGIN: {
-    RESET_STATE: 'LOGIN.RESET_STATE',
-  },
 };
 
-const namespaces = Object.keys(actionTypes).reduce((acc, type) => ({ ...acc, [type]: type }), {});
-
-export { actionTypes as default, namespaces };
+export { actionTypes as default };

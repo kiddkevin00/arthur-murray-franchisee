@@ -1,17 +1,21 @@
 import { combineReducers } from 'redux';
 
+import me from './states/me';
 // ## Generator Reducer Imports
-import gallery from '../modules/gallery/GalleryState';
 import app from '../modules/AppState';
-import calendar from '../modules/calendar/CalendarState';
+//import gallery from '../modules/gallery/GalleryState';
+//import calendar from '../modules/calendar/CalendarState';
 import charts from '../modules/charts/ChartsState';
-import chat from '../modules/chat/ChatState';
+//import chat from '../modules/chat/ChatState';
+import auth from '../modules/auth/AuthState';
 
 export default combineReducers({
+  me,
   // ## Generator Reducers
-  gallery,
+  //gallery,
   app,
-  calendar,
+  //calendar,
   charts,
-  chat,
+  //chat,
+  auth,
 });

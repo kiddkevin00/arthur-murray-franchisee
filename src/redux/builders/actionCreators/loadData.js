@@ -1,4 +1,4 @@
-import actionTypes from '../../actionTypes';
+import actionTypes from '../actionTypes/';
 
 const { LOAD_DATA } = actionTypes;
 

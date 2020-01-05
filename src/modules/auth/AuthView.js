@@ -1,4 +1,6 @@
-import React from 'react';
+import { fonts, colors } from '../../styles';
+import { TextInput, Button } from '../../components';
+import * as WebBrowser from 'expo-web-browser';
 import {
   StyleSheet,
   View,
@@ -9,208 +11,10 @@ import {
   LayoutAnimation,
   TouchableOpacity,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
-
-import { fonts, colors } from '../../styles';
-import { TextInput, Button } from '../../components';
-
-const FORM_STATES = {
-  LOGIN: 0,
-  REGISTER: 1,
-};
-
-export default class AuthScreen extends React.Component {
-  state = {
-    anim: new Animated.Value(0),
-
-    // Current visible form
-    formState: FORM_STATES.LOGIN,
-    isKeyboardVisible: false,
-  };
-
-  componentWillMount() {
-    this.keyboardDidShowListener = Keyboard.addListener(
-      Platform.select({ android: 'keyboardDidShow', ios: 'keyboardWillShow' }),
-      this._keyboardDidShow.bind(this),
-    );
-    this.keyboardDidHideListener = Keyboard.addListener(
-      Platform.select({ android: 'keyboardDidHide', ios: 'keyboardWillHide' }),
-      this._keyboardDidHide.bind(this),
-    );
-  }
-
-  componentDidMount() {
-    Animated.timing(this.state.anim, { toValue: 3000, duration: 3000 }).start();
-  }
-
-  componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
-  }
-
-  _keyboardDidShow() {
-    LayoutAnimation.easeInEaseOut();
-    this.setState({ isKeyboardVisible: true });
-  }
-
-  _keyboardDidHide() {
-    LayoutAnimation.easeInEaseOut();
-    this.setState({ isKeyboardVisible: false });
-  }
-
-  fadeIn(delay, from = 0) {
-    const { anim } = this.state;
-    return {
-      opacity: anim.interpolate({
-        inputRange: [delay, Math.min(delay + 500, 3000)],
-        outputRange: [0, 1],
-        extrapolate: 'clamp',
-      }),
-      transform: [
-        {
-          translateY: anim.interpolate({
-            inputRange: [delay, Math.min(delay + 500, 3000)],
-            outputRange: [from, 0],
-            extrapolate: 'clamp',
-          }),
-        },
-      ],
-    };
-  }
-
-  render() {
-    const isRegister = this.state.formState === FORM_STATES.REGISTER;
-
-    return (
-      <ImageBackground
-        source={require('../../../assets/images/background.png')}
-        style={styles.backgroundImage}
-        resizeMode="cover"
-      >
-        <View style={styles.container}>
-          <View style={[styles.section, { paddingTop: 30 }]}>
-            <Animated.Image
-              resizeMode="contain"
-              style={[
-                styles.logo,
-                this.state.isKeyboardVisible && { height: 45 },
-                this.fadeIn(0),
-              ]}
-              source={require('../../../assets/images/header-title.png')}
-            />
-          </View>
-
-          <Animated.View
-            style={[styles.section, styles.middle, this.fadeIn(700, -20)]}
-          >
-            <TextInput
-              placeholder="Username"
-              style={styles.textInput}
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-
-            {this.state.formState === FORM_STATES.REGISTER && (
-              <TextInput
-                placeholder="Email"
-                style={styles.textInput}
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-              />
-            )}
-
-            <TextInput
-              placeholder="Password"
-              secureTextEntry
-              style={styles.textInput}
-            />
-
-            <Animated.View
-              style={[styles.section, styles.bottom, this.fadeIn(700, -20)]}
-            >
-              <Button
-                bgColor={colors.secondary}
-                textColor="white"
-                primary
-                style={{ alignSelf: 'stretch', marginBottom: 10 }}
-                caption={
-                  this.state.formState === FORM_STATES.LOGIN
-                    ? 'Login'
-                    : 'Register'
-                }
-                onPress={() => this.props.navigation.goBack()}
-              />
-
-              {!this.state.isKeyboardVisible && (
-                <View style={styles.socialLoginContainer}>
-                  <Button
-                    style={styles.socialButton}
-                    bordered
-                    bgColor={colors.primary}
-                    icon={require('../../../assets/images/google-plus.png')}
-                    iconColor={colors.primary}
-                    onPress={() => this.props.navigation.goBack()}
-                  />
-                  <Button
-                    style={[styles.socialButton, styles.socialButtonCenter]}
-                    bordered
-                    bgColor={colors.primary}
-                    icon={require('../../../assets/images/twitter.png')}
-                    iconColor={colors.primary}
-                    onPress={() => this.props.navigation.goBack()}
-                  />
-                  <Button
-                    style={styles.socialButton}
-                    bordered
-                    bgColor={colors.primary}
-                    icon={require('../../../assets/images/facebook.png')}
-                    iconColor={colors.primary}
-                    onPress={() => this.props.navigation.goBack()}
-                  />
-                </View>
-              )}
-
-              {!this.state.isKeyboardVisible && (
-                <TouchableOpacity
-                  onPress={() => {
-                    LayoutAnimation.spring();
-                    this.setState({
-                      formState: isRegister
-                        ? FORM_STATES.LOGIN
-                        : FORM_STATES.REGISTER,
-                    });
-                  }}
-                  style={{ paddingTop: 30, flexDirection: 'row' }}
-                >
-                  <Text
-                    style={{
-                      color: colors.primary,
-                      fontFamily: fonts.primaryRegular,
-                    }}
-                  >
-                    {isRegister
-                      ? 'Already have an account?'
-                      : "Don't have an account?"}
-                  </Text>
-                  <Text
-                    style={{
-                      color: colors.primary,
-                      fontFamily: fonts.primaryBold,
-                      marginLeft: 5,
-                    }}
-                  >
-                    {isRegister ? 'Login' : 'Register'}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </Animated.View>
-          </Animated.View>
-        </View>
-      </ImageBackground>
-    );
-  }
-}
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const styles = StyleSheet.create({
   container: {
@@ -245,6 +49,12 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginTop: 20,
   },
+  errorText: {
+    marginTop: 80,
+    color: 'red',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
   logo: {
     height: 60,
     width: 300,
@@ -263,3 +73,204 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 });
+
+export default class AuthScreen extends React.Component {
+  static propTypes = {
+    formEmail: PropTypes.string.isRequired,
+    formPassword: PropTypes.string.isRequired,
+    isErrorVisible: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired,
+    isUpdatingData: PropTypes.bool.isRequired,
+
+    dispatchResetState: PropTypes.func.isRequired,
+    dispatchSetFormField: PropTypes.func.isRequired,
+    dispatchLogin: PropTypes.func.isRequired,
+
+    navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  };
+
+  state = {
+    anim: new Animated.Value(0),
+    isKeyboardVisible: false,
+  };
+
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      Platform.select({ android: 'keyboardDidShow', ios: 'keyboardWillShow' }),
+      this._keyboardDidShow.bind(this),
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      Platform.select({ android: 'keyboardDidHide', ios: 'keyboardWillHide' }),
+      this._keyboardDidHide.bind(this),
+    );
+  }
+
+  componentDidMount() {
+    this.props.dispatchResetState();
+
+    Animated.timing(this.state.anim, { toValue: 3000, duration: 3000 }).start();
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  handleChange(field, event) {
+    this.props.dispatchSetFormField(field, event.nativeEvent.text);
+  }
+
+  handleLogin = async () => {
+    this.props.dispatchLogin(this.props.formEmail, this.props.formPassword, this.props.navigation);
+  };
+
+  _keyboardDidShow() {
+    LayoutAnimation.easeInEaseOut();
+    this.setState({ isKeyboardVisible: true });
+  }
+
+  _keyboardDidHide() {
+    LayoutAnimation.easeInEaseOut();
+    this.setState({ isKeyboardVisible: false });
+  }
+
+  fadeIn(delay, from = 0) {
+    const { anim } = this.state;
+
+    return {
+      opacity: anim.interpolate({
+        inputRange: [delay, Math.min(delay + 500, 3000)],
+        outputRange: [0, 1],
+        extrapolate: 'clamp',
+      }),
+      transform: [
+        {
+          translateY: anim.interpolate({
+            inputRange: [delay, Math.min(delay + 500, 3000)],
+            outputRange: [from, 0],
+            extrapolate: 'clamp',
+          }),
+        },
+      ],
+    };
+  }
+
+  render() {
+    const { formEmail, formPassword, navigation } = this.props;
+
+    return (
+      <ImageBackground
+        source={require('../../../assets/images/background.png')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      >
+        <View style={styles.container}>
+          <View style={[styles.section, { paddingTop: 30 }]}>
+            <Animated.Image
+              resizeMode="contain"
+              style={[
+                styles.logo,
+                this.state.isKeyboardVisible && { height: 45 },
+                this.fadeIn(0),
+              ]}
+              source={require('../../../assets/images/header-title.png')}
+            />
+          </View>
+
+          <Animated.View
+            style={[styles.section, styles.middle, this.fadeIn(700, -20)]}
+          >
+            <TextInput
+              placeholder="Email"
+              style={styles.textInput}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              value={formEmail}
+              onChange={this.handleChange.bind(this, 'email')}
+            />
+            <TextInput
+              placeholder="Password"
+              style={styles.textInput}
+              secureTextEntry={true}
+              value={formPassword}
+              onChange={this.handleChange.bind(this, 'password')}
+            />
+
+            <Text style={styles.errorText}>
+              {!this.props.isUpdatingData && this.props.isErrorVisible && this.props.errorMessage || ''}
+            </Text>
+            <ActivityIndicator animating={this.props.isUpdatingData} color={colors.secondary} size="large" />
+
+            <View
+              style={[styles.section, styles.bottom]} // ,this.fadeIn(700, -20)
+            >
+              <Button
+                bgColor={colors.secondary}
+                textColor="white"
+                primary
+                style={{ alignSelf: 'stretch', marginBottom: 10 }}
+                caption="Login"
+                onPress={this.handleLogin}
+              />
+
+              {!this.state.isKeyboardVisible && (
+                <View style={styles.socialLoginContainer}>
+                  <Button
+                    style={styles.socialButton}
+                    bordered
+                    bgColor={colors.primary}
+                    icon={require('../../../assets/images/google-plus.png')}
+                    iconColor={colors.primary}
+                    onPress={() => navigation.goBack()}
+                  />
+                  <Button
+                    style={[styles.socialButton, styles.socialButtonCenter]}
+                    bordered
+                    bgColor={colors.primary}
+                    icon={require('../../../assets/images/twitter.png')}
+                    iconColor={colors.primary}
+                    onPress={() => navigation.goBack()}
+                  />
+                  <Button
+                    style={styles.socialButton}
+                    bordered
+                    bgColor={colors.primary}
+                    icon={require('../../../assets/images/facebook.png')}
+                    iconColor={colors.primary}
+                    onPress={() => navigation.goBack()}
+                  />
+                </View>
+              )}
+
+              {!this.state.isKeyboardVisible && (
+                <TouchableOpacity
+                  onPress={() => WebBrowser.openBrowserAsync('https://reporting.arthurmurray.com')}
+                  style={{ paddingTop: 30, flexDirection: 'row' }}
+                >
+                  <Text
+                    style={{
+                      color: colors.primary,
+                      fontFamily: fonts.primaryRegular,
+                    }}
+                  >
+                    Don't have an account?
+                  </Text>
+                  <Text
+                    style={{
+                      color: colors.primary,
+                      fontFamily: fonts.primaryBold,
+                      marginLeft: 5,
+                    }}
+                  >
+                    Register
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </Animated.View>
+        </View>
+      </ImageBackground>
+    );
+  }
+}

@@ -1,8 +1,6 @@
-import actionTypes, { namespaces } from '../actionTypes/';
 import { combineReducers } from 'redux';
 
-const { ME } = actionTypes;
-
+// INITIAL STATES
 const mainInitialState = {
   id: undefined,
   email: undefined,
@@ -13,14 +11,41 @@ const mainInitialState = {
   enabled: undefined,
 };
 
+// ACTION TYPES
+export const RESET_STATE = `MeState/RESET_STATE`;
+export const SET_DATA = `MeState/SET_DATA`;
+
+// ACTION CREATOR
+export const meActionCreator = {
+  resetMainState() {
+    return {
+      type: RESET_STATE,
+    };
+  },
+
+  resetState() {
+    return dispatch => {
+      dispatch(this.resetMainState());
+    };
+  },
+
+  setData(payload) {
+    return {
+      type: SET_DATA,
+      payload,
+    };
+  },
+};
+
+// REDUCER
 const mainReducer = (state = mainInitialState, action) => {
   const actionType = action.type;
   const actionPayload = action.payload;
 
   switch (actionType) {
-    case ME.RESET_STATE:
+    case RESET_STATE:
       return { ...mainInitialState };
-    case ME.SET_DATA:
+    case SET_DATA:
       return {
         ...state,
         ...actionPayload,
@@ -30,8 +55,6 @@ const mainReducer = (state = mainInitialState, action) => {
   }
 };
 
-const meReducer = combineReducers({
+export default combineReducers({
   main: mainReducer,
 });
-
-export { meReducer as default };

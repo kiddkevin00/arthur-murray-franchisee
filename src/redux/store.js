@@ -1,29 +1,20 @@
-import { applyMiddleware, createStore, compose } from 'redux';
+import reducer from './reducer';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { applyMiddleware, createStore, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import reducer from './reducer';
 
+const composeEnhancers = (global.__DEV__ && global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 const enhancers = [
   applyMiddleware(
     thunkMiddleware,
-    createLogger({
-      collapsed: true,
-      // eslint-disable-next-line no-undef
-      predicate: () => __DEV__,
-    }),
+    //createLogger({
+    //  collapsed: true,
+    //  predicate: () => global.__DEV__,
+    //}),
   ),
 ];
-
-/* eslint-disable no-undef */
-const composeEnhancers =
-  (__DEV__ &&
-    typeof window !== 'undefined' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
-/* eslint-enable no-undef */
-
 const enhancer = composeEnhancers(...enhancers);
 
 const persistConfig = {
@@ -31,7 +22,9 @@ const persistConfig = {
   storage,
   blacklist: [],
 };
-
 const persistedReducer = persistReducer(persistConfig, reducer);
-export const store = createStore(persistedReducer, {}, enhancer);
+const initialState = undefined;
+
+export const store = createStore(persistedReducer, initialState, enhancer);
+
 export const persistor = persistStore(store);
