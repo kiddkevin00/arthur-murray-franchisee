@@ -1,106 +1,8 @@
-import React from 'react';
-import { StyleSheet, View, Text, ImageBackground } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
 import { Button } from '../../components';
 import { fonts, colors } from '../../styles';
-
-export default function ProfileScreen() {
-  return (
-    <View style={styles.container}>
-      <ImageBackground
-        resizeMode="cover"
-        source={require('../../../assets/images/me.png')}
-        style={[styles.section, styles.header]}
-      >
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <Text style={styles.title}>Frederic Havez</Text>
-          <View>
-            <Text style={styles.position}>Professional Dancer</Text>
-            <Text style={styles.company}>USA</Text>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Button
-            secondary
-            rounded
-            small
-            caption="Contact"
-            onPress={() => {}}
-          />
-
-          {/*
-          <Button
-            rounded
-            bordered
-            small
-            style={{ marginLeft: 20 }}
-            caption="Follow"
-            onPress={() => {}}
-          />
-          */}
-        </View>
-      </ImageBackground>
-      <View style={styles.section}>
-        <View
-          //start={{ x: 0, y: 1 }}
-          //end={{ x: 1, y: 0 }}
-          colors={[colors.profileGradientStart, colors.profileGradientEnd]}
-          style={[styles.quickFacts, { backgroundColor: colors.profileGradientStart }]}
-        >
-          <View style={styles.quickInfoItem}>
-            <Text style={styles.quickInfoText}>99</Text>
-            <Text style={styles.quickInfoText}>Competitions</Text>
-          </View>
-
-          <View style={styles.quickInfoItem}>
-            <Text style={styles.quickInfoText}>78</Text>
-            <Text style={styles.quickInfoText}>Awards</Text>
-          </View>
-
-          <View style={styles.quickInfoItem}>
-            <Text style={styles.quickInfoText}>215</Text>
-            <Text style={styles.quickInfoText}>Students</Text>
-          </View>
-        </View>
-
-        <View style={{ flex: 1 }}>
-          <View style={styles.infoRow}>
-            <Icon
-              style={styles.infoIcon}
-              name="map-marker"
-              size={20}
-              color="#c3c3c3"
-            />
-            <Text>New York, USA</Text>
-          </View>
-          <View style={styles.hr} />
-
-          <View style={styles.infoRow}>
-            <Icon
-              style={styles.infoIcon}
-              name="instagram"
-              size={20}
-              color="#c3c3c3"
-            />
-            <Text>@FredericH</Text>
-          </View>
-          <View style={styles.hr} />
-
-          <View style={styles.infoRow}>
-            <Icon
-              style={styles.infoIcon}
-              name="youtube"
-              size={20}
-              color="#c3c3c3"
-            />
-            <Text>@DanceComp</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
-}
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import React from 'react';
 
 const styles = StyleSheet.create({
   container: {
@@ -187,3 +89,101 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default function ProfileScreen({ email, firstName, lastName}) {
+
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        resizeMode="cover"
+        source={require('../../../assets/images/me.png')}
+        style={[styles.section, styles.header]}
+      >
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <Text style={styles.title}>{firstName} {lastName}</Text>
+          <View>
+            <Text style={styles.position}>Professional Dancer</Text>
+            <Text style={styles.company}>USA</Text>
+          </View>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            secondary
+            rounded
+            small
+            caption="Contact"
+            onPress={() => {}}
+          />
+
+          {/*
+          <Button
+            rounded
+            bordered
+            small
+            style={{ marginLeft: 20 }}
+            caption="Follow"
+            onPress={() => {}}
+          />
+          */}
+        </View>
+      </ImageBackground>
+      <View style={styles.section}>
+        <View
+          //start={{ x: 0, y: 1 }}
+          //end={{ x: 1, y: 0 }}
+          colors={[colors.profileGradientStart, colors.profileGradientEnd]}
+          style={[styles.quickFacts, { backgroundColor: colors.profileGradientStart }]}
+        >
+          <View style={styles.quickInfoItem}>
+            <Text style={styles.quickInfoText}>99</Text>
+            <Text style={styles.quickInfoText}>Competitions</Text>
+          </View>
+
+          <View style={styles.quickInfoItem}>
+            <Text style={styles.quickInfoText}>78</Text>
+            <Text style={styles.quickInfoText}>Awards</Text>
+          </View>
+
+          <View style={styles.quickInfoItem}>
+            <Text style={styles.quickInfoText}>215</Text>
+            <Text style={styles.quickInfoText}>Students</Text>
+          </View>
+        </View>
+
+        <View style={{ flex: 1 }}>
+          <View style={styles.infoRow}>
+            <Icon
+              style={styles.infoIcon}
+              name="map-marker"
+              size={20}
+              color="#c3c3c3"
+            />
+            <Text>New York, USA</Text>
+          </View>
+          <View style={styles.hr} />
+
+          <View style={styles.infoRow}>
+            <Icon
+              style={styles.infoIcon}
+              name="instagram"
+              size={20}
+              color="#c3c3c3"
+            />
+            <Text>@FredericH</Text>
+          </View>
+          <View style={styles.hr} />
+
+          <View style={styles.infoRow}>
+            <Icon
+              style={styles.infoIcon}
+              name="mail-forward"
+              size={20}
+              color="#c3c3c3"
+            />
+            <Text>{email}</Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+}
