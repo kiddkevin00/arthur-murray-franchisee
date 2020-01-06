@@ -1,13 +1,11 @@
-/* eslint-disable import/no-unresolved */
+import ReportsScreen from '../reports/ReportsViewContainer';
+import EventsScreen from '../events/EventsViewContainer';
+import AuthScreen from '../auth/AuthViewContainer';
+import ProfileScreen from '../profile/ProfileViewContainer';
+import { colors, fonts } from '../../styles';
 import React from 'react';
 import { Image, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
-
-import { colors, fonts } from '../../styles';
-
-import ProfileScreen from '../profile/ProfileViewContainer';
-import GridsScreen from '../grids/GridsViewContainer';
-import ChartsScreen from '../charts/ChartsViewContainer';
 
 const iconHome = require('../../../assets/images/tabbar/home.png');
 const iconCalendar = require('../../../assets/images/tabbar/calendar.png');
@@ -54,13 +52,13 @@ const styles = StyleSheet.create({
 export default createBottomTabNavigator(
   {
     Reports: {
-      screen: GridsScreen,
+      screen: ReportsScreen,
     },
     Events: {
-      screen: GridsScreen,
+      screen: EventsScreen,
     },
     Payments: {
-      screen: ChartsScreen,
+      screen: AuthScreen,
     },
     Profile: {
       screen: ProfileScreen,

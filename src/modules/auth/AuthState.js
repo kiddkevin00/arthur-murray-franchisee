@@ -62,7 +62,7 @@ export const authActionCreator = {
         dispatch(meActionCreator.resetMainState());
         dispatch(meActionCreator.setData(data));
 
-        navigation.replace('Profile');
+        navigation.replace('Main');
 
         dispatch(this.updateDataSuccess());
       } catch (error) {

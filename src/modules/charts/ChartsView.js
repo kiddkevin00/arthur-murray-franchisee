@@ -39,7 +39,7 @@ export default function ChartsScreen(props) {
   return (
     <ScrollView style={styles.container} bounces={false}>
       <View style={styles.titleView}>
-        <Text style={styles.titleText}>Charts Demo</Text>
+        <Text style={styles.titleText}>Statistics</Text>
       </View>
       <View style={styles.background}>
         <View style={styles.chartView}>
