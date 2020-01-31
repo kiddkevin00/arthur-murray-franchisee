@@ -4,7 +4,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 
-import GalleryScreen from '../gallery/GalleryViewContainer';
+//import GalleryScreen from '../gallery/GalleryViewContainer';
 import ProfileScreen from '../profile/ProfileViewContainer';
 import ArticleScreen from '../article/ArticleViewContainer';
 //import ChatScreen from '../chat/ChatViewContainer';
