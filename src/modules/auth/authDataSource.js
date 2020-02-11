@@ -11,7 +11,7 @@ export const login = (email, password) =>
     client_secret: '52963dmdve88ow4o8ggk0g80k000k0g4s0k00k0kso8coswssw',
     grant_type: 'password',
     username: email,
-    password: password,
+    password,
   });
 
 export const fetchMyInfo = access_token => httpClient.get('/api/v1/users/current', { params: { access_token } });

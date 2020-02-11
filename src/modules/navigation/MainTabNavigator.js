@@ -1,6 +1,6 @@
 import ReportsScreen from '../reports/ReportsViewContainer';
 import EventsScreen from '../events/EventsViewContainer';
-import AuthScreen from '../auth/AuthViewContainer';
+import PaymentView from '../payment/PaymentView';
 import ProfileScreen from '../profile/ProfileViewContainer';
 import { colors, fonts } from '../../styles';
 import React from 'react';
@@ -58,14 +58,14 @@ export default createBottomTabNavigator(
       screen: EventsScreen,
     },
     Payments: {
-      screen: AuthScreen,
+      screen: PaymentView,
     },
     Profile: {
       screen: ProfileScreen,
     },
   },
   {
-    initialRouteName: 'Reports',
+    initialRouteName: 'Payments',
     defaultNavigationOptions: ({ navigation }) => ({
       // eslint-disable-next-line react/prop-types
       tabBarIcon: ({ focused }) => {

@@ -79,7 +79,7 @@ const stackNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: 'Main',
     defaultNavigationOptions: () => ({
       titleStyle: {
         fontFamily: fonts.primaryLight,
