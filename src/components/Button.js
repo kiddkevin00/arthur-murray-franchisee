@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  ActivityIndicator,
-} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View, Text, ActivityIndicator } from 'react-native';
 
 import { colors, fonts } from '../styles';
 
@@ -14,6 +7,7 @@ const borderRadius = 40;
 
 export default function RNSButton(props) {
   const caption = props.caption && props.caption.toUpperCase();
+  const disabled = props.disabled || false;
   let icon;
   if (props.icon) {
     icon = (
@@ -66,9 +60,7 @@ export default function RNSButton(props) {
       <View style={borderedStyle}>
         {icon && <View>{icon}</View>}
         {props.loading && <ActivityIndicator color="white" />}
-        {!props.loading && props.caption && (
-          <Text style={textStyle}>{caption}</Text>
-        )}
+        {!props.loading && props.caption && <Text style={textStyle}>{caption}</Text>}
         {props.children && props.children}
       </View>
     );
@@ -145,6 +137,7 @@ export default function RNSButton(props) {
         props.large && styles.containerLarge,
         props.style,
       ]}
+      disabled={disabled}
     >
       {content}
     </TouchableOpacity>
