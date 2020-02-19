@@ -1,6 +1,6 @@
 import ReportsScreen from '../reports/ReportsViewContainer';
 import EventsScreen from '../events/EventsViewContainer';
-import PaymentView from '../payment/PaymentView';
+import PaymentScreen from '../payment/PaymentViewContainer';
 import ProfileScreen from '../profile/ProfileViewContainer';
 import { colors, fonts } from '../../styles';
 import React from 'react';
@@ -58,7 +58,7 @@ export default createBottomTabNavigator(
       screen: EventsScreen,
     },
     Payments: {
-      screen: PaymentView,
+      screen: PaymentScreen,
     },
     Profile: {
       screen: ProfileScreen,

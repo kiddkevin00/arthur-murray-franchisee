@@ -54,6 +54,9 @@ export default function RNSButton(props) {
       props.textColor && {
         color: props.textColor,
       },
+      props.disabled && {
+        opacity: 0.5,
+      },
     ];
 
     content = (
@@ -62,6 +65,7 @@ export default function RNSButton(props) {
         {props.loading && <ActivityIndicator color="white" />}
         {!props.loading && props.caption && <Text style={textStyle}>{caption}</Text>}
         {props.children && props.children}
+        {props.disabled && { opacity: 0.5 }}
       </View>
     );
   } else {
@@ -93,6 +97,7 @@ export default function RNSButton(props) {
           props.rounded && { borderRadius },
           props.action && styles.action,
           { backgroundColor: gradientArray[0] },
+          props.disabled && { opacity: 0.5 },
         ]}
       >
         {icon && <View>{icon}</View>}

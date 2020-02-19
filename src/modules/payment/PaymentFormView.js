@@ -1,18 +1,44 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from '../../components';
+import { Button, ExpoIcon } from '../../components';
 import { CreditCardInput } from 'react-native-credit-card-input';
-import { FontAwesome } from '@expo/vector-icons';
+import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+const styles = StyleSheet.create({
+  buttonWrapper: {
+    alignSelf: 'center',
+    paddingTop: 20,
+    width: 300,
+    zIndex: 1,
+  },
+
+  alertWrapper: {
+    backgroundColor: '#ecb7b7',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    borderRadius: 5,
+    padding: 10,
+  },
+  alertText: {
+    flex: 1,
+    paddingLeft: 10,
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#c22',
+  },
+});
+
 /**
- * Renders the payment form and handles the credit card data
- * using the CreditCardInput component.
+ * Renders a payment form to handle all the credit card information,
+ * using the `CreditCardInput` component.
  */
-export default class PaymentFormView extends React.Component {
+export default class PaymentFormView extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    submitted: PropTypes.bool.isRequired,
-    error: PropTypes.string,
+    onPay: PropTypes.func.isRequired,
+    isPaying: PropTypes.bool.isRequired,
+    isErrorVisible: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired,
   };
 
   state = {
@@ -20,31 +46,26 @@ export default class PaymentFormView extends React.Component {
   };
 
   render() {
-    const { onSubmit, submitted, error } = this.props;
+    const { onPay, isPaying, isErrorVisible, errorMessage } = this.props;
+
     return (
       <View>
-        <View>
-          <CreditCardInput requiresName onChange={cardData => this.setState({ cardData })} />
-        </View>
+        <CreditCardInput
+          requiresName={true}
+          onChange={cardData => this.setState({ cardData })}
+        />
         <View style={styles.buttonWrapper}>
           <Button
-            secondary
-            rounded
-            small
-            caption="Subscribe"
-            disabled={!this.state.cardData.valid || submitted}
-            onPress={() => onSubmit(this.state.cardData)}
+            primary={true}
+            caption="Pay"
+            disabled={isPaying || !this.state.cardData.valid}
+            onPress={() => onPay(this.state.cardData)}
           />
 
-          {/* Show errors */}
-          {error && (
+          {isErrorVisible && (
             <View style={styles.alertWrapper}>
-              <View style={styles.alertIconWrapper}>
-                <FontAwesome name="exclamation-circle" size={20} style={{ color: '#c22' }} />
-              </View>
-              <View style={styles.alertTextWrapper}>
-                <Text style={styles.alertText}>{error}</Text>
-              </View>
+              <ExpoIcon name="exclamation-circle" type="FontAwesome" size={20} color="#c22" />
+              <Text style={styles.alertText}>{errorMessage}</Text>
             </View>
           )}
         </View>
@@ -52,39 +73,3 @@ export default class PaymentFormView extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  buttonWrapper: {
-    padding: 10,
-    zIndex: 100,
-  },
-  alertTextWrapper: {
-    flex: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  alertIconWrapper: {
-    padding: 5,
-    flex: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  alertText: {
-    color: '#c22',
-    fontSize: 16,
-    fontWeight: '400',
-  },
-  alertWrapper: {
-    backgroundColor: '#ecb7b7',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    borderRadius: 5,
-    paddingVertical: 5,
-    marginTop: 10,
-  },
-});

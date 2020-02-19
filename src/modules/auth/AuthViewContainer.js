@@ -8,9 +8,9 @@ export default compose(
     state => ({
       formEmail: state.auth.form.email.value,
       formPassword: state.auth.form.password.value,
+      isUpdatingData: state.auth.updateData.isUpdatingData,
       isErrorVisible: state.auth.updateData.error.isVisible,
       errorMessage: state.auth.updateData.error.message,
-      isUpdatingData: state.auth.updateData.isUpdatingData,
     }),
     dispatch => ({
       dispatchResetState() {

@@ -70,7 +70,7 @@ export default class GridsScreen extends React.Component {
           //start={{ x: 0, y: 0 }}
           //end={{ x: 1, y: 1 }}
           colors={[colors.primaryGradientStart, colors.primaryGradientEnd]}
-          style={[styles.itemTwoOverlay, { backgroundColo: colors.primaryGradientStart }]
+          style={[styles.itemTwoOverlay, { backgroundColo: colors.primaryGradientStart }]}
         />
         <Text style={styles.itemTwoTitle}>{item.title}</Text>
         <Text style={styles.itemTwoSubTitle}>{item.subtitle}</Text>
