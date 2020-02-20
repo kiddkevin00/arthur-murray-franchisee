@@ -65,7 +65,7 @@ export default createBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'Payments',
+    initialRouteName: 'Reports',
     defaultNavigationOptions: ({ navigation }) => ({
       // eslint-disable-next-line react/prop-types
       tabBarIcon: ({ focused }) => {
