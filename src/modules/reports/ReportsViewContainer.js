@@ -10,6 +10,10 @@ export default compose(
       isLoadingData: state.reports.loadData.isLoadingData,
     }),
     dispatch => ({
+      dispatchResetState() {
+        dispatch(actionCreator.resetState());
+      },
+
       dispatchFetchStudioReports(studio) {
         dispatch(actionCreator.fetchStudioReports(studio));
       },

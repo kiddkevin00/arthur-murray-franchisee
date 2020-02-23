@@ -188,6 +188,8 @@ export default class ReportsScreen extends React.Component {
   };
 
   componentWillMount() {
+    this.props.dispatchResetState();
+
     this.props.dispatchFetchStudioReports();
   }
 
