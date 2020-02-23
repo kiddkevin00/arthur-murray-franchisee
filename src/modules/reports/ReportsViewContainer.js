@@ -1,6 +1,18 @@
+import { reportsActionCreator as actionCreator } from './ReportsState';
 import ReportsView from './ReportsView';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
 
 export default compose(
-  withState('tabIndex', 'setTabIndex', 2),
+  connect(
+    state => ({
+      reports: state.reports.main.reports,
+      isLoadingData: state.reports.loadData.isLoadingData,
+    }),
+    dispatch => ({
+      dispatchFetchStudioReports(studio) {
+        dispatch(actionCreator.fetchStudioReports(studio));
+      },
+    }),
+  ),
 )(ReportsView);

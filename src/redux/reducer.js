@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import me from './states/me';
 import auth from '../modules/auth/AuthState';
 import payment from '../modules/payment/PaymentState';
+import reports from '../modules/reports/ReportsState';
 
 // ## Generator Reducer Imports
 import app from '../modules/AppState';
@@ -13,8 +14,9 @@ import charts from '../modules/charts/ChartsState';
 
 export default combineReducers({
   me,
-  payment,
   auth,
+  payment,
+  reports,
 
   // ## Generator Reducers
   //gallery,

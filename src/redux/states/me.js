@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+const namespace = 'MeState';
+
 // INITIAL STATES
 const mainInitialState = {
   id: undefined,
@@ -12,8 +14,8 @@ const mainInitialState = {
 };
 
 // ACTION TYPES
-export const RESET_STATE = `MeState/RESET_STATE`;
-export const SET_DATA = `MeState/SET_DATA`;
+export const RESET_STATE = `${namespace}/RESET_STATE`;
+export const SET_DATA = `${namespace}/SET_DATA`;
 
 // ACTION CREATOR
 export const meActionCreator = {

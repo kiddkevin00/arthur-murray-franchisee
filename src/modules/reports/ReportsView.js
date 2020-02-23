@@ -10,151 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import React from 'react';
-
-const dummyData = [
-  {
-    id: 1,
-    brand: 'Week 28',
-    title: 'Miscellaneous Sales',
-    subtitle: 'Miscellaneous vs Gross',
-    price: '80%',
-    badge: 'GOOD',
-    badgeColor: '#3cd39f',
-    image: null,
-  },
-  {
-    id: 2,
-    brand: 'Week 28',
-    title: 'Contacted Conversion',
-    subtitle: 'Booked vs Contacted',
-    price: '40%',
-    badge: 'NEED IMPROVEMENT',
-    badgeColor: '#ee1f78',
-    image: null,
-  },
-  {
-    id: 3,
-    brand: 'Week 28',
-    title: 'Showed Conversion',
-    subtitle: 'Showed vs Original Sold',
-    price: '50%',
-    priceFrom: true,
-    badge: 'NEED ATTENTION',
-    badgeColor: '#ffae42',
-    image: null,
-  },
-  {
-    id: 4,
-    brand: 'Week 28',
-    title: 'Extension Sold',
-    subtitle: 'Number of Extensions Sold',
-    price: '216',
-    badge: 'GOOD',
-    badgeColor: '#3cd39f',
-    image: null,
-  },
-  {
-    id: 5,
-    brand: 'Week 28',
-    title: 'Extension Sold from Original',
-    subtitle: 'Year-to-date Original Sold vs Extension Sold.',
-    price: '0%',
-    badge: 'NEED IMPROVEMENT',
-    badgeColor: '#ee1f78',
-    image: null,
-  },
-  {
-    id: 6,
-    brand: 'Week 28',
-    title: 'Lessons Sold',
-    subtitle: 'Number of Lessons Sold',
-    price: '99',
-    badge: 'GOOD',
-    badgeColor: '#3cd39f',
-    image: null,
-  },
-  {
-    id: 7,
-    brand: 'Week 28',
-    title: 'Health of the studio',
-    subtitle: 'Year-to-date PVT vs Lessons Sold',
-    price: '80%',
-    badge: 'GOOD',
-    badgeColor: '#3cd39f',
-    image: null,
-  },
-  {
-    id: 8,
-    brand: 'Week 27',
-    title: 'Miscellaneous Sales',
-    subtitle: 'Miscellaneous vs Gross',
-    price: '60%',
-    badge: 'AVERAGE',
-    badgeColor: '#3cd39f',
-    image: null,
-  },
-  {
-    id: 9,
-    brand: 'Week 27',
-    title: 'Contacted Conversion',
-    subtitle: 'Booked vs Contacted',
-    price: '30%',
-    badge: 'NEED IMPROVEMENT',
-    badgeColor: '#ee1f78',
-    image: null,
-  },
-  {
-    id: 10,
-    brand: 'Week 27',
-    title: 'Showed Conversion',
-    subtitle: 'Showed vs Original Sold',
-    price: '45%',
-    priceFrom: true,
-    badge: 'NEED ATTENTION',
-    badgeColor: '#ffae42',
-    image: null,
-  },
-  {
-    id: 11,
-    brand: 'Week 27',
-    title: 'Extension Sold',
-    subtitle: 'Number of Extensions Sold',
-    price: '214',
-    badge: 'GOOD',
-    badgeColor: '#3cd39f',
-    image: null,
-  },
-  {
-    id: 12,
-    brand: 'Week 27',
-    title: 'Extension Sold from Original',
-    subtitle: 'Year-to-date Original Sold vs Extension Sold.',
-    price: '1%',
-    badge: 'NEED IMPROVEMENT',
-    badgeColor: '#ee1f78',
-    image: null,
-  },
-  {
-    id: 13,
-    brand: 'Week 28',
-    title: 'Lessons Sold',
-    subtitle: 'Number of Lessons Sold',
-    price: '98',
-    badge: 'GOOD',
-    badgeColor: '#3cd39f',
-    image: null,
-  },
-  {
-    id: 14,
-    brand: 'Week 28',
-    title: 'Health of the studio',
-    subtitle: 'Year-to-date PVT vs Lessons Sold',
-    price: '85%',
-    badge: 'GOOD',
-    badgeColor: '#3cd39f',
-    image: null,
-  },
-];
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   container: {
@@ -323,45 +179,74 @@ const styles = StyleSheet.create({
 });
 
 export default class ReportsScreen extends React.Component {
+  static propTypes = {
+    reports: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+
+    dispatchFetchStudioReports: PropTypes.func.isRequired,
+
+    navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  };
+
+  componentWillMount() {
+    this.props.dispatchFetchStudioReports();
+  }
+
   _openArticle = () => {
     this.props.navigation.navigate({
       routeName: 'Charts',
     });
   };
 
-  renderRowThree = ({ item }) => (
+  convertToPercentageDisplay(floatingNumber) {
+    return `${(floatingNumber * 100).toFixed(2)}%`;
+  }
+
+  renderRow = ({ item }) => (
     <TouchableOpacity
-      key={item.id}
+      //key={item.id}
       style={styles.itemThreeContainer}
       onPress={() => this._openArticle(item)}
     >
       <View style={styles.itemThreeSubContainer}>
-        <Image source={{ uri: item.image }} style={styles.itemThreeImage} />
+        <Image source={{ uri: null }} style={styles.itemThreeImage} />
         <View style={styles.itemThreeContent}>
-          <Text style={styles.itemThreeBrand}>{item.brand}</Text>
-          <View>
-            <Text style={styles.itemThreeTitle}>{item.title}</Text>
-            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              {item.subtitle}
-            </Text>
-          </View>
-          <View style={styles.itemThreeMetaContainer}>
-            {item.badge && (
-              <View
-                style={[
-                  styles.badge,
-                  { backgroundColor: item.badgeColor },
-                ]}
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={styles.itemThreeBrand}>Week {item.submitted_weeks}</Text>
+            <View
+              style={[
+                styles.badge,
+                { backgroundColor: item.lessonsSold > 800 ? '#3cd39f' : '#ffae42' },
+              ]}
+            >
+              <Text
+                style={{ fontSize: 10, color: colors.white }}
+                styleName="bright"
               >
-                <Text
-                  style={{ fontSize: 10, color: colors.white }}
-                  styleName="bright"
-                >
-                  {item.badge}
-                </Text>
-              </View>
-            )}
-            <Text style={styles.itemThreePrice}>{item.price}</Text>
+                {item.lessonsSold > 800 ? 'GOOD' : 'ATTENTION'}
+              </Text>
+            </View>
+          </View>
+          <View>
+            <Text style={styles.itemThreeTitle}>Lessons Sold: {item.lessonsSold}</Text>
+
+            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
+              Miscellaneous Sales: {this.convertToPercentageDisplay(item.miscellaneousVsGross)}
+            </Text>
+            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
+              Contacted Conversion: {this.convertToPercentageDisplay(item.bookedVsContact)}
+            </Text>
+            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
+              Showed Conversion: {this.convertToPercentageDisplay(item.showedVsOriginalSold)}
+            </Text>
+            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
+              Extension Sold: {item.extension_sold}
+            </Text>
+            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
+              Extension Sold from Original: {this.convertToPercentageDisplay(item.originalSoldVsExtensionSold)}
+            </Text>
+            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
+              Health of the studio: {this.convertToPercentageDisplay(item.lessonsTaughtVsLessonsSold)}
+            </Text>
           </View>
         </View>
       </View>
@@ -372,13 +257,13 @@ export default class ReportsScreen extends React.Component {
     return (
       <View style={styles.container}>
         <FlatList
-          keyExtractor={item => `${item.id}`}
+          keyExtractor={item => `${item._id}`}
           style={{
             backgroundColor: colors.whiteTwo,
             paddingHorizontal: 15,
           }}
-          data={dummyData}
-          renderItem={this.renderRowThree}
+          data={this.props.reports}
+          renderItem={this.renderRow}
         />
       </View>
     );

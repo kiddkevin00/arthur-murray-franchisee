@@ -25,5 +25,5 @@ export default compose(
         dispatch(actionCreator.login(email, password, navigation));
       },
     }),
-  )
+  ),
 )(AuthView);
