@@ -39,7 +39,7 @@ export default class PaymentScreen extends React.Component {
       'card[cvc]': cardInput.values.cvc,
     };
 
-    this.props.dispatchPay(cardData, cardInput.values.name);
+    this.props.dispatchPay(cardData, cardInput.values.name, this.props.navigation);
   };
 
   render() {

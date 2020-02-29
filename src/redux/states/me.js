@@ -8,7 +8,7 @@ const mainInitialState = {
   email: undefined,
   first_name: undefined,
   last_name: undefined,
-  studio: undefined,
+  studio: {},
   created_at: undefined,
   enabled: undefined,
 };

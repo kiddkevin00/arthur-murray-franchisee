@@ -11,6 +11,7 @@ import ArticleScreen from '../article/ArticleViewContainer';
 //import MessagesScreen from '../chat/MessagesViewContainer';
 import ChartsScreen from '../charts/ChartsViewContainer';
 import AuthScreen from '../auth/AuthViewContainer';
+import PaymentHistoryScreen from '../paymentHistory/PaymentHistoryViewContainer';
 
 import { colors, fonts } from '../../styles';
 
@@ -76,6 +77,9 @@ const stackNavigator = createStackNavigator(
       navigationOptions: {
         header: null,
       },
+    },
+    PaymentHistory: {
+      screen: PaymentHistoryScreen,
     },
   },
   {

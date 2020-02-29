@@ -9,6 +9,7 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
+import { format } from 'date-fns';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   },
   itemThreeImage: {
     height: 100,
-    width: 0,
+    width: 100,
     borderRadius: 10,
   },
   itemThreeContent: {
@@ -178,79 +179,36 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ReportsScreen extends React.Component {
+export default class EventsScreen extends React.Component {
   static propTypes = {
-    reports: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+    myTransactions: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
 
     dispatchResetState: PropTypes.func.isRequired,
-    dispatchFetchStudioReports: PropTypes.func.isRequired,
-
-    navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    dispatchFetchMyTransactions: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
     this.props.dispatchResetState();
 
-    this.props.dispatchFetchStudioReports();
-  }
-
-  _openArticle = () => {
-    this.props.navigation.navigate({
-      routeName: 'Charts',
-    });
-  };
-
-  convertToPercentageDisplay(floatingNumber) {
-    return `${(floatingNumber * 100).toFixed(2)}%`;
+    this.props.dispatchFetchMyTransactions();
   }
 
   renderRow = ({ item }) => (
-    <TouchableOpacity
-      style={styles.itemThreeContainer}
-      onPress={() => this._openArticle(item)}
-    >
-      <View style={styles.itemThreeSubContainer}>
-        <Image source={{ uri: null }} style={styles.itemThreeImage} />
-        <View style={styles.itemThreeContent}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={styles.itemThreeBrand}>Week {item.submitted_weeks}</Text>
-            <View
-              style={[
-                styles.badge,
-                { backgroundColor: item.lessonsSold > 800 ? '#3cd39f' : '#ffae42' },
-              ]}
-            >
-              <Text
-                style={{ fontSize: 10, color: colors.white }}
-                styleName="bright"
-              >
-                {item.lessonsSold > 800 ? 'GOOD' : 'ATTENTION'}
-              </Text>
-            </View>
-          </View>
-          <View>
-            <Text style={styles.itemThreeTitle}>Lessons Sold: {item.lessonsSold}</Text>
-
-            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              Miscellaneous Sales: {this.convertToPercentageDisplay(item.miscellaneousVsGross)}
-            </Text>
-            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              Contacted Conversion: {this.convertToPercentageDisplay(item.bookedVsContact)}
-            </Text>
-            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              Showed Conversion: {this.convertToPercentageDisplay(item.showedVsOriginalSold)}
-            </Text>
-            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              Extension Sold: {item.extension_sold}
-            </Text>
-            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              Extension Sold from Original: {this.convertToPercentageDisplay(item.originalSoldVsExtensionSold)}
-            </Text>
-            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              Health of the studio: {this.convertToPercentageDisplay(item.lessonsTaughtVsLessonsSold)}
-            </Text>
-          </View>
-        </View>
+    <TouchableOpacity style={styles.itemTwoContainer}>
+      <View style={styles.itemTwoContent}>
+        <Image
+          style={styles.itemTwoImage}
+          source={require('../../../assets/images/transaction-background.jpg')}
+        />
+        <View
+          //start={{ x: 0, y: 0 }}
+          //end={{ x: 1, y: 1 }}
+          colors={[colors.primaryGradientStart, colors.primaryGradientEnd]}
+          style={[styles.itemTwoOverlay, { backgroundColor: colors.primaryGradientStart }]}
+        />
+        <Text style={styles.itemTwoTitle}>{item.description}</Text>
+        <Text style={styles.itemTwoSubTitle}>{format(item.created * 1000, 'M/d/yyyy p')}</Text>
+        <Text style={styles.itemTwoPrice}>${item.amount} {item.status.toUpperCase()}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -259,12 +217,12 @@ export default class ReportsScreen extends React.Component {
     return (
       <View style={styles.container}>
         <FlatList
-          keyExtractor={item => `${item._id}`}
+          keyExtractor={item => `${item.id}`}
           style={{
             backgroundColor: colors.whiteTwo,
             paddingHorizontal: 15,
           }}
-          data={this.props.reports}
+          data={this.props.myTransactions}
           renderItem={this.renderRow}
         />
       </View>

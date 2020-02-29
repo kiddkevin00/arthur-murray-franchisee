@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import me from './states/me';
 import auth from '../modules/auth/AuthState';
 import payment from '../modules/payment/PaymentState';
+import paymentHistory from '../modules/paymentHistory/PaymentHistoryState';
 import reports from '../modules/reports/ReportsState';
 
 // ## Generator Reducer Imports
@@ -16,6 +17,7 @@ export default combineReducers({
   me,
   auth,
   payment,
+  paymentHistory,
   reports,
 
   // ## Generator Reducers

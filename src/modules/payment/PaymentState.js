@@ -1,6 +1,7 @@
 import * as dataSource from './paymentDataSource';
 import buildUpdateDataActionCreator from '../../redux/builders/actionCreators/updateData';
 import buildUpdateDataReducer from '../../redux/builders/reducers/updateData';
+import { NavigationActions } from 'react-navigation';
 import { combineReducers } from 'redux';
 import { Alert } from 'react-native';
 
@@ -37,7 +38,7 @@ export const paymentActionCreator = {
     };
   },
 
-  pay(cardData, nameOnCard) {
+  pay(cardData, nameOnCard, navigation) {
     return async (dispatch, getState) => {
       try {
         dispatch(this.updateDataRequest());
@@ -48,13 +49,17 @@ export const paymentActionCreator = {
           token: cardToken.id,
           userInfo: {
             nameOnCard,
-            email: getState().me.email,
-            firstName: getState().me.first_name,
-            lastName: getState().me.last_name,
-            studio: getState().me.studio,
+            email: getState().me.main.email,
+            firstName: getState().me.main.first_name,
+            lastName: getState().me.main.last_name,
+            studio: getState().me.main.studio && getState().me.main.studio.name,
           },
           chargeAmount: 999, // Will be gathered from `getState().reports[0].revenue`.
         });
+
+        Alert.alert('Payment Successful', 'Your payment has been successfully processed!');
+
+        navigation.navigate(NavigationActions.navigate({ routeName: 'Payments' }));
 
         dispatch(this.updateDataSuccess());
       } catch (error) {

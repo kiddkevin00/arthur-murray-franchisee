@@ -15,8 +15,8 @@ export default compose(
         dispatch(actionCreator.resetState());
       },
 
-      dispatchPay(cardData, nameOnCard) {
-        dispatch(actionCreator.pay(cardData, nameOnCard));
+      dispatchPay(cardData, nameOnCard, navigation) {
+        dispatch(actionCreator.pay(cardData, nameOnCard, navigation));
       },
     }),
   ),

@@ -13,7 +13,7 @@ const namespace = 'AuthState';
 export const mainInitialState = {};
 const formInitialState = {
   email: {
-    value: 'info@dancecomp.org',
+    value: 'amdcworld+dcomp@gmail.com',
   },
   password: {
     value: 'dance1',

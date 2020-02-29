@@ -1,13 +1,15 @@
-import * as dataSource from './reportsDataSource';
+import * as dataSource from './paymentHistoryDataSource';
 import buildLoadDataActionCreator from '../../redux/builders/actionCreators/loadData';
 import buildLoadDataReducer from '../../redux/builders/reducers/loadData';
 import { combineReducers } from 'redux';
 import { Alert } from 'react-native';
 
-const namespace = 'ReportsState';
+const namespace = 'PaymentHistoryState';
 
 // INITIAL STATES
-export const mainInitialState = { reports: [] };
+export const mainInitialState = {
+  myTransactions: [],
+};
 const loadDataInitialState = {
   isLoadingData: false,
 };
@@ -17,7 +19,7 @@ export const RESET_STATE = `${namespace}/RESET_STATE`;
 export const SET_DATA = `${namespace}/SET_DATA`;
 
 // ACTION CREATOR
-export const reportsActionCreator = {
+export const paymentHistoryActionCreator = {
   ...buildLoadDataActionCreator(namespace),
 
   resetMainState() {
@@ -41,16 +43,22 @@ export const reportsActionCreator = {
     };
   },
 
-  fetchStudioReports() {
+  fetchMyTransactions() {
     return async (dispatch, getState) => {
       try {
         dispatch(this.loadDataRequest());
 
-        const { data: reports } = await dataSource.fetchStudioReports(
-          getState().me.main.studio && getState().me.main.studio.name,
-        );
+        const { data: { data: allTransactions } } = await dataSource.fetchMyTransactions();
+        const studioName = getState().me.main.studio && getState().me.main.studio.name;
+        let myTransactions = [];
 
-        dispatch(this.setData({ reports }));
+        if (studioName) {
+          myTransactions = allTransactions.filter(
+            transaction => transaction.description.split(' from ')[1] === studioName
+          );
+        }
+
+        dispatch(this.setData({ myTransactions }));
 
         dispatch(this.loadDataSuccess());
       } catch (error) {

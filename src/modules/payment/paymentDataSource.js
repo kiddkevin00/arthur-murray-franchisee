@@ -5,7 +5,7 @@ import queryString from 'query-string';
 const stripeHttpClient = HttpClient.createInstance({
   baseURL: 'https://api.stripe.com',
 });
-const arthurMurraySystemhttpClient = HttpClient.createInstance();
+const arthurMurraySystemHttpClient = HttpClient.createInstance();
 
 export const fetchStripeCardToken = cardData =>
   stripeHttpClient.post('/v1/tokens', queryString.stringify(cardData), {
@@ -17,4 +17,4 @@ export const fetchStripeCardToken = cardData =>
   });
 
 export const proceedPayment = payload =>
-  arthurMurraySystemhttpClient.post('payment/proceed', payload);
+  arthurMurraySystemHttpClient.post('/payment/proceed', payload);

@@ -339,6 +339,7 @@ export default class EventsScreen extends React.Component {
         </View>
       </TouchableOpacity>
     ));
+
     return (
       <View key={rowData.item[0].id} style={styles.itemOneRow}>
         {cellViews}
