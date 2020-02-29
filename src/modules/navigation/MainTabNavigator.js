@@ -1,6 +1,7 @@
 import ReportsScreen from '../reports/ReportsViewContainer';
-import PaymentHistoryScreen from '../paymentHistory/PaymentHistoryViewContainer';
+import EventsScreen from '../events/EventsViewContainer';
 import PaymentScreen from '../payment/PaymentViewContainer';
+import PaymentHistoryScreen from '../paymentHistory/PaymentHistoryViewContainer';
 import ProfileScreen from '../profile/ProfileViewContainer';
 import { colors, fonts } from '../../styles';
 import React from 'react';
@@ -54,11 +55,14 @@ export default createBottomTabNavigator(
     Reports: {
       screen: ReportsScreen,
     },
-    Payments: {
-      screen: PaymentHistoryScreen,
+    Events: {
+      screen: EventsScreen,
     },
     Pay: {
       screen: PaymentScreen,
+    },
+    Payments: {
+      screen: PaymentHistoryScreen,
     },
     Profile: {
       screen: ProfileScreen,

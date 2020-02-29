@@ -1,4 +1,4 @@
-import { RadioGroup, GridRow } from '../../components';
+import { GridRow } from '../../components';
 import { colors, fonts } from '../../styles';
 import {
   StyleSheet,
@@ -11,128 +11,46 @@ import {
   Dimensions,
 } from 'react-native';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const dummyData = [
   {
     id: 1,
-    brand: 'Citizen',
-    title: 'CITIZEN ECO-DRIVE',
-    subtitle: 'Limited Edition',
-    price: '$129.99',
-    badge: 'NEW',
-    badgeColor: '#3cd39f',
-    image:
-      'https://reactnativestarter.com/demo/images/city-sunny-people-street.jpg',
+    title: 'TEXAS DANCE-O RAMA',
+    subtitle: 'Wastin Houston Hotel',
+    price: 'Feb 6 - Feb 9, 2020',
+    image: require('../../../assets/images/event-sample.png'),
   },
   {
     id: 2,
-    brand: 'Weeknight',
-    title: 'NEXT-LEVEL WEAR',
-    subtitle: 'Office, prom or special parties is all dressed up',
-    price: '$29.99',
-    priceFrom: true,
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-26549.jpg',
+    title: 'WORLD DANCE-O RAMA',
+    subtitle: 'Sheraton Hotel',
+    price: 'May 18 - May 22, 2020',
   },
   {
     id: 3,
-    brand: 'Mad Perry',
-    title: 'CITIZEN ECO-DRIVE',
-    subtitle: 'Office, prom or special parties is all dressed up',
-    price: '$29.99',
-    priceFrom: true,
-    badge: 'SALE',
-    badgeColor: '#ee1f78',
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-30360.jpg',
+    title: 'VANCOUVER DANCE-O-RAMA',
+    subtitle: 'Westin Bayshore Hotel',
+    price: 'Apr 30 - Mar 3, 2020',
   },
   {
     id: 4,
-    brand: 'Citizen',
-    title: 'CITIZEN ECO-DRIVE',
-    subtitle: 'Limited Edition',
-    price: '$129.99',
-    badge: 'NEW',
-    badgeColor: 'green',
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-37839.jpg',
+    title: 'FOXWOODS DANCE-O-RAMA',
+    subtitle: 'Foxwoods Resort & Casino',
+    price: 'May 28 - May 31, 2020',
+    image: require('../../../assets/images/event-sample-2.png'),
   },
   {
     id: 5,
-    brand: 'Weeknight',
-    title: 'NEXT-LEVEL WEAR',
-    subtitle: 'Office, prom or special parties is all dressed up',
-    price: '$29.99',
-    priceFrom: true,
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-69212.jpg',
+    title: 'UNIQUE DANCE-O-RAMA',
+    subtitle: 'Hotel Irvine',
+    price: 'Jul 16 - Jul 19, 2020',
   },
   {
     id: 6,
-    brand: 'Mad Perry',
-    title: 'CITIZEN ECO-DRIVE',
-    subtitle: 'Office, prom or special parties is all dressed up',
-    price: '$29.99',
-    priceFrom: true,
-    badge: 'SALE',
-    badgeColor: 'red',
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-108061.jpg',
-  },
-  {
-    id: 7,
-    brand: 'Citizen',
-    title: 'CITIZEN ECO-DRIVE',
-    subtitle: 'Limited Edition',
-    price: '$129.99',
-    badge: 'NEW',
-    badgeColor: '#3cd39f',
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-126371.jpg',
-  },
-  {
-    id: 8,
-    brand: 'Weeknight',
-    title: 'NEXT-LEVEL WEAR',
-    subtitle: 'Office, prom or special parties is all dressed up',
-    price: '$29.99',
-    priceFrom: true,
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-165888.jpg',
-  },
-  {
-    id: 9,
-    brand: 'Mad Perry',
-    title: 'CITIZEN ECO-DRIVE',
-    subtitle: 'Office, prom or special parties is all dressed up',
-    price: '$29.99',
-    priceFrom: true,
-    badge: 'SALE',
-    badgeColor: '#ee1f78',
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-167854.jpg',
-  },
-  {
-    id: 10,
-    brand: 'Citizen',
-    title: 'CITIZEN ECO-DRIVE',
-    subtitle: 'Limited Edition',
-    price: '$129.99',
-    badge: 'NEW',
-    badgeColor: 'green',
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-173427.jpg',
-  },
-  {
-    id: 11,
-    brand: 'Weeknight',
-    title: 'NEXT-LEVEL WEAR',
-    subtitle: 'Office, prom or special parties is all dressed up',
-    price: '$29.99',
-    priceFrom: true,
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-175696.jpg',
-  },
-  {
-    id: 12,
-    brand: 'Mad Perry',
-    title: 'CITIZEN ECO-DRIVE',
-    subtitle: 'Office, prom or special parties is all dressed up',
-    price: '$29.99',
-    priceFrom: true,
-    badge: 'SALE',
-    badgeColor: 'red',
-    image: 'https://reactnativestarter.com/demo/images/pexels-photo-175733.jpg',
+    title: 'CIAO AMORE DANCE-O-RAMA',
+    subtitle: 'INTERCONTINENTAL HOTEL',
+    price: 'Aug 4 - Aug 9, 2020',
   },
 ];
 const styles = StyleSheet.create({
@@ -302,24 +220,23 @@ const styles = StyleSheet.create({
 });
 
 export default class EventsScreen extends React.Component {
-  _getRenderItemFunction = () =>
-    [this.renderRowOne, this.renderRowTwo, this.renderRowThree][
-      this.props.tabIndex
-    ];
+  static propTypes = {
+    navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  };
 
-  _openArticle = article => {
+  goToEventSignUp = eventInfo => {
     this.props.navigation.navigate({
-      routeName: 'Article',
-      params: { ...article },
+      routeName: 'EventSignUp',
+      params: { ...eventInfo },
     });
   };
 
-  renderRowOne = rowData => {
+  renderRow = rowData => {
     const cellViews = rowData.item.map(item => (
-      <TouchableOpacity key={item.id} onPress={() => this._openArticle(item)}>
+      <TouchableOpacity key={item.id} onPress={() => this.goToEventSignUp(item)}>
         <View style={styles.itemOneContainer}>
           <View style={styles.itemOneImageContainer}>
-            <Image style={styles.itemOneImage} source={{ uri: item.image }} />
+            <Image style={styles.itemOneImage} source={item.image || require('../../../assets/images/icon.png')} />
           </View>
           <View style={styles.itemOneContent}>
             <Text style={styles.itemOneTitle} numberOfLines={1}>
@@ -347,94 +264,19 @@ export default class EventsScreen extends React.Component {
     );
   };
 
-  renderRowTwo = ({ item }) => (
-    <TouchableOpacity
-      key={item.id}
-      style={styles.itemTwoContainer}
-      onPress={() => this._openArticle(item)}
-    >
-      <View style={styles.itemTwoContent}>
-        <Image style={styles.itemTwoImage} source={{ uri: item.image }} />
-        <View
-          //start={{ x: 0, y: 0 }}
-          //end={{ x: 1, y: 1 }}
-          colors={[colors.primaryGradientStart, colors.primaryGradientEnd]}
-          style={[styles.itemTwoOverlay, { backgroundColor: colors.primaryGradientStart }]}
-        />
-        <Text style={styles.itemTwoTitle}>{item.title}</Text>
-        <Text style={styles.itemTwoSubTitle}>{item.subtitle}</Text>
-        <Text style={styles.itemTwoPrice}>{item.price}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-
-  renderRowThree = ({ item }) => (
-    <TouchableOpacity
-      key={item.id}
-      style={styles.itemThreeContainer}
-      onPress={() => this._openArticle(item)}
-    >
-      <View style={styles.itemThreeSubContainer}>
-        <Image source={{ uri: item.image }} style={styles.itemThreeImage} />
-        <View style={styles.itemThreeContent}>
-          <Text style={styles.itemThreeBrand}>{item.brand}</Text>
-          <View>
-            <Text style={styles.itemThreeTitle}>{item.title}</Text>
-            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              {item.subtitle}
-            </Text>
-          </View>
-          <View style={styles.itemThreeMetaContainer}>
-            {item.badge && (
-              <View
-                style={[
-                  styles.badge,
-                  item.badge === 'NEW' && { backgroundColor: colors.labelOne },
-                ]}
-              >
-                <Text
-                  style={{ fontSize: 10, color: colors.white }}
-                  styleName="bright"
-                >
-                  {item.badge}
-                </Text>
-              </View>
-            )}
-            <Text style={styles.itemThreePrice}>{item.price}</Text>
-          </View>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-
   render() {
-    const groupedData =
-      this.props.tabIndex === 0
-        ? GridRow.groupByRows(dummyData, 2)
-        : dummyData;
+    const groupedData = GridRow.groupByRows(dummyData, 2);
 
     return (
       <View style={styles.container}>
-        <View style={{ height: 50 }}>
-          <RadioGroup
-            selectedIndex={this.props.tabIndex}
-            onChange={this.props.setTabIndex}
-            items={['Competition', 'Social', 'Education']}
-            underline
-          />
-        </View>
         <FlatList
-          keyExtractor={item =>
-            item.id
-              ? `${this.props.tabIndex}-${item.id}`
-              : `${item[0] && item[0].id}`
-          }
+          keyExtractor={item => `${item[0] && item[0].id}`}
           style={{
             backgroundColor: colors.whiteTwo,
             paddingHorizontal: 15,
           }}
           data={groupedData}
-          renderItem={this._getRenderItemFunction()}
+          renderItem={this.renderRow}
         />
       </View>
     );

@@ -6,7 +6,7 @@ import MainTabNavigator from './MainTabNavigator';
 
 //import GalleryScreen from '../gallery/GalleryViewContainer';
 import ProfileScreen from '../profile/ProfileViewContainer';
-import ArticleScreen from '../article/ArticleViewContainer';
+import EventSignUpScreen from '../eventSignUp/EventSignUpViewContainer';
 //import ChatScreen from '../chat/ChatViewContainer';
 //import MessagesScreen from '../chat/MessagesViewContainer';
 import ChartsScreen from '../charts/ChartsViewContainer';
@@ -48,10 +48,10 @@ const stackNavigator = createStackNavigator(
     //    title: 'Gallery',
     //  },
     //},
-    Article: {
-      screen: ArticleScreen,
+    EventSignUp: {
+      screen: EventSignUpScreen,
       navigationOptions: {
-        title: 'Article',
+        title: 'Event Sign Up',
       },
     },
     //Chat: {
