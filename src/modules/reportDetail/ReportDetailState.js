@@ -34,8 +34,8 @@ const lineDataTemplate = [
   { x: 0, y: 0 },
 ];
 
-const START_LOADING_DATA = 'ChartsState/START_LOADING_DATA';
-const DATA_LOADED = 'ChartsState/DATA_LOADED';
+const START_LOADING_DATA = 'ReportDetailState/START_LOADING_DATA';
+const DATA_LOADED = 'ReportDetailState/DATA_LOADED';
 
 function dataLoaded(data) {
   return {
@@ -85,7 +85,7 @@ const initialState = {
   isLoading: true,
 };
 
-export default function ChartsStateReducer(state = initialState, action) {
+export default function ReportDetailStateReducer(state = initialState, action) {
   switch (action.type) {
     case START_LOADING_DATA:
       return Object.assign({}, state, {

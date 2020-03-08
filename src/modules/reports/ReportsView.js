@@ -194,9 +194,10 @@ export default class ReportsScreen extends React.Component {
     this.props.dispatchFetchStudioReports();
   }
 
-  _openArticle = () => {
+  goToDetail = item => {
     this.props.navigation.navigate({
-      routeName: 'Charts',
+      routeName: 'ReportDetail',
+      params: { ...item },
     });
   };
 
@@ -207,7 +208,7 @@ export default class ReportsScreen extends React.Component {
   renderRow = ({ item }) => (
     <TouchableOpacity
       style={styles.itemThreeContainer}
-      onPress={() => this._openArticle(item)}
+      onPress={() => this.goToDetail(item)}
     >
       <View style={styles.itemThreeSubContainer}>
         <Image source={{ uri: null }} style={styles.itemThreeImage} />
@@ -247,7 +248,10 @@ export default class ReportsScreen extends React.Component {
               Extension Sold from Original: {this.convertToPercentageDisplay(item.originalSoldVsExtensionSold)}
             </Text>
             <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
-              Health of the studio: {this.convertToPercentageDisplay(item.lessonsTaughtVsLessonsSold)}
+              Lessons Sold: {item.weeklyLessonsSold}
+            </Text>
+            <Text style={styles.itemThreeSubtitle} numberOfLines={1}>
+              Studio Health: {this.convertToPercentageDisplay(item.lessonsTaughtVsLessonsSold)}
             </Text>
           </View>
         </View>

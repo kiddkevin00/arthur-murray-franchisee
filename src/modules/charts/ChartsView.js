@@ -36,11 +36,13 @@ export default function ChartsScreen(props) {
   }
 
   const { pie, line } = props.data;
+
   return (
     <ScrollView style={styles.container} bounces={false}>
       <View style={styles.titleView}>
         <Text style={styles.titleText}>Statistics</Text>
       </View>
+
       <View style={styles.background}>
         <View style={styles.chartView}>
           <Text style={styles.chartLabelText}>Pie Chart</Text>
@@ -62,6 +64,7 @@ export default function ChartsScreen(props) {
             style={{ labels: { fill: colors.white, fontSize: 18 } }}
           />
         </View>
+
         <View style={styles.chartView}>
           <Text style={styles.chartLabelText}>Candlestick Chart</Text>
           <VictoryChart width={290} height={290}>
@@ -71,6 +74,7 @@ export default function ChartsScreen(props) {
             />
           </VictoryChart>
         </View>
+
         <View style={[styles.chartView, { marginBottom: 20 }]}>
           <Text style={styles.chartLabelText}>Voronoi Container</Text>
           <VictoryChart width={290} height={290}>

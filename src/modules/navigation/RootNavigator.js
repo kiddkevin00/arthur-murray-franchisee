@@ -9,7 +9,7 @@ import ProfileScreen from '../profile/ProfileViewContainer';
 import EventSignUpScreen from '../eventSignUp/EventSignUpViewContainer';
 //import ChatScreen from '../chat/ChatViewContainer';
 //import MessagesScreen from '../chat/MessagesViewContainer';
-import ChartsScreen from '../charts/ChartsViewContainer';
+import ReportDetailScreen from '../reportDetail/ReportDetailViewContainer';
 import AuthScreen from '../auth/AuthViewContainer';
 import PaymentHistoryScreen from '../paymentHistory/PaymentHistoryViewContainer';
 
@@ -66,10 +66,10 @@ const stackNavigator = createStackNavigator(
     //    title: 'Messages',
     //  },
     //},
-    Charts: {
-      screen: ChartsScreen,
+    ReportDetail: {
+      screen: ReportDetailScreen,
       navigationOptions: {
-        title: 'Charts',
+        title: 'Detail',
       },
     },
     Auth: {
