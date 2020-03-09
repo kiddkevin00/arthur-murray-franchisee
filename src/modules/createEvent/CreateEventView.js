@@ -1,6 +1,7 @@
 import { fonts, colors } from '../../styles';
-import { TextInput, Button } from '../../components/';
-import * as WebBrowser from 'expo-web-browser';
+import { TextInput, Button } from '../../components';
+import DatePicker from 'react-native-datepicker'
+import { format } from 'date-fns';
 import {
   StyleSheet,
   View,
@@ -59,12 +60,6 @@ const styles = StyleSheet.create({
     height: 60,
     width: 300,
   },
-  socialLoginContainer: {
-    flexDirection: 'row',
-    alignSelf: 'stretch',
-    marginTop: 15,
-    justifyContent: 'space-between',
-  },
   socialButton: {
     flex: 1,
   },
@@ -73,18 +68,20 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 });
+const todayTimestamp = format(new Date, 'MMM do yyyy, h:mm a');
 
-export default class AuthScreen extends React.Component {
+export default class CreateEventScreen extends React.Component {
   static propTypes = {
-    formEmail: PropTypes.string.isRequired,
-    formPassword: PropTypes.string.isRequired,
+    formName: PropTypes.string.isRequired,
+    formDescription: PropTypes.string.isRequired,
+    formDate: PropTypes.string.isRequired,
     isErrorVisible: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
     isUpdatingData: PropTypes.bool.isRequired,
 
     dispatchResetState: PropTypes.func.isRequired,
     dispatchSetFormField: PropTypes.func.isRequired,
-    dispatchLogin: PropTypes.func.isRequired,
+    dispatchCreateEvent: PropTypes.func.isRequired,
 
     navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
@@ -116,12 +113,15 @@ export default class AuthScreen extends React.Component {
     this.keyboardDidHideListener.remove();
   }
 
-  handleChange(field, event) {
-    this.props.dispatchSetFormField(field, event.nativeEvent.text);
+  handleChange(field, eventOrValue) {
+    this.props.dispatchSetFormField(
+      field,
+      eventOrValue.nativeEvent ? eventOrValue.nativeEvent.text : eventOrValue,
+    );
   }
 
-  handleLogin = async () => {
-    this.props.dispatchLogin(this.props.formEmail, this.props.formPassword, this.props.navigation);
+  handleCreateEvent = async () => {
+    this.props.dispatchCreateEvent(this.props.formName, this.props.formDescription, this.props.formDate, this.props.navigation);
   };
 
   _keyboardDidShow() {
@@ -156,7 +156,7 @@ export default class AuthScreen extends React.Component {
   }
 
   render() {
-    const { formEmail, formPassword, navigation } = this.props;
+    const { formName, formDescription, formDate, navigation } = this.props;
 
     return (
       <ImageBackground
@@ -181,26 +181,53 @@ export default class AuthScreen extends React.Component {
             style={[styles.section, styles.middle, this.fadeIn(700, -20)]}
           >
             <TextInput
-              placeholder="Email"
+              placeholder="Event Name"
               style={styles.textInput}
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-              value={formEmail}
-              onChange={this.handleChange.bind(this, 'email')}
+              value={formName}
+              onChange={this.handleChange.bind(this, 'name')}
             />
             <TextInput
-              placeholder="Password"
+              placeholder="Description"
               style={styles.textInput}
-              secureTextEntry={true}
-              value={formPassword}
-              onChange={this.handleChange.bind(this, 'password')}
+              value={formDescription}
+              onChange={this.handleChange.bind(this, 'description')}
+            />
+            <DatePicker
+              style={{ width: '100%', marginTop: 25 }}
+              date={formDate}
+              mode="datetime"
+              placeholder="Select Date"
+              format="MMM Do YYYY, h:mm A"
+              minDate={todayTimestamp}
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 10,
+                },
+                dateInput: {
+                  borderWidth: 0,
+                  borderBottomWidth: 1,
+                  borderBottomColor: colors.textInputColor,
+                },
+                dateText: {
+                  color: colors.textInputColor,
+                },
+              }}
+              onDateChange={this.handleChange.bind(this, 'date')}
             />
 
             <Text style={styles.errorText}>
               {!this.props.isUpdatingData && this.props.isErrorVisible && this.props.errorMessage}
             </Text>
-            <ActivityIndicator animating={this.props.isUpdatingData} color={colors.secondary} size="large" />
+            <ActivityIndicator
+              animating={this.props.isUpdatingData}
+              color={colors.secondary}
+              size="large"
+            />
 
             <View
               style={[styles.section, styles.bottom]} // ,this.fadeIn(700, -20)
@@ -210,63 +237,9 @@ export default class AuthScreen extends React.Component {
                 textColor="white"
                 primary
                 style={{ alignSelf: 'stretch', marginBottom: 10 }}
-                caption="Login"
-                onPress={this.handleLogin}
+                caption="Create Event"
+                onPress={this.handleCreateEvent}
               />
-
-              {/* !this.state.isKeyboardVisible && (
-                <View style={styles.socialLoginContainer}>
-                  <Button
-                    style={styles.socialButton}
-                    bordered
-                    bgColor={colors.primary}
-                    icon={require('../../../assets/images/google-plus.png')}
-                    iconColor={colors.primary}
-                    onPress={() => navigation.goBack()}
-                  />
-                  <Button
-                    style={[styles.socialButton, styles.socialButtonCenter]}
-                    bordered
-                    bgColor={colors.primary}
-                    icon={require('../../../assets/images/twitter.png')}
-                    iconColor={colors.primary}
-                    onPress={() => navigation.goBack()}
-                  />
-                  <Button
-                    style={styles.socialButton}
-                    bordered
-                    bgColor={colors.primary}
-                    icon={require('../../../assets/images/facebook.png')}
-                    iconColor={colors.primary}
-                    onPress={() => navigation.goBack()}
-                  />
-                </View>
-              ) */}
-
-              {!this.state.isKeyboardVisible && (
-                <TouchableOpacity
-                  onPress={() => WebBrowser.openBrowserAsync('https://reporting.arthurmurray.com')}
-                  style={{ paddingTop: 30, flexDirection: 'row' }}
-                >
-                  <Text
-                    style={{
-                      color: colors.primary,
-                      fontFamily: fonts.primaryRegular,
-                    }}
-                  >
-                    Don't have an account?
-                  </Text>
-                  <Text
-                    style={{
-                      color: colors.primary,
-                      fontFamily: fonts.primaryBold,
-                      marginLeft: 5,
-                    }}
-                  >
-                    Register
-                  </Text>
-                </TouchableOpacity>
-              )}
             </View>
           </Animated.View>
         </View>
