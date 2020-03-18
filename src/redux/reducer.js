@@ -6,6 +6,7 @@ import payment from '../modules/payment/PaymentState';
 import paymentHistory from '../modules/paymentHistory/PaymentHistoryState';
 import reports from '../modules/reports/ReportsState';
 import createEvent from '../modules/createEvent/CreateEventState';
+import events from '../modules/events/EventsState';
 
 // ## Generator Reducer Imports
 import app from '../modules/AppState';
@@ -21,6 +22,7 @@ export default combineReducers({
   paymentHistory,
   reports,
   createEvent,
+  events,
 
   // ## Generator Reducers
   //gallery,

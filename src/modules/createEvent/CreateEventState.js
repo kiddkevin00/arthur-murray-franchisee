@@ -1,3 +1,5 @@
+import { eventsActionCreator } from '../events/EventsState';
+import * as dataSource from './createEventDataSource';
 import buildFormActionCreator from '../../redux/builders/actionCreators/form';
 import buildUpdateDataActionCreator from '../../redux/builders/actionCreators/updateData';
 import buildFormReducer from '../../redux/builders/reducers/form';
@@ -53,10 +55,18 @@ export const createEventActionCreator = {
     };
   },
 
-  createEvent() {
+  createEvent(payload, navigation) {
     return async dispatch => {
       try {
         dispatch(this.updateDataRequest());
+
+        await dataSource.createEvent(payload);
+
+        await dispatch(eventsActionCreator.fetchEvents());
+
+        Alert.alert('Event Created', `The event ${payload.name} has been created successfully!`);
+
+        navigation.navigate('Events');
 
         dispatch(this.updateDataSuccess());
       } catch (error) {

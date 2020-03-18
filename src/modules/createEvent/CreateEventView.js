@@ -121,7 +121,14 @@ export default class CreateEventScreen extends React.Component {
   }
 
   handleCreateEvent = async () => {
-    this.props.dispatchCreateEvent(this.props.formName, this.props.formDescription, this.props.formDate, this.props.navigation);
+    this.props.dispatchCreateEvent(
+      {
+        name: this.props.formName,
+        description: this.props.formDescription,
+        date: this.props.formDate,
+      },
+      this.props.navigation,
+    );
   };
 
   _keyboardDidShow() {
@@ -156,7 +163,7 @@ export default class CreateEventScreen extends React.Component {
   }
 
   render() {
-    const { formName, formDescription, formDate, navigation } = this.props;
+    const { formName, formDescription, formDate } = this.props;
 
     return (
       <ImageBackground

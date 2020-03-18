@@ -13,45 +13,12 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const dummyData = [
-  {
-    id: 1,
-    title: 'TEXAS DANCE-O RAMA',
-    subtitle: 'Wastin Houston Hotel',
-    price: 'Feb 6 - Feb 9, 2020',
-    image: require('../../../assets/images/event-sample.png'),
-  },
-  {
-    id: 2,
-    title: 'WORLD DANCE-O RAMA',
-    subtitle: 'Sheraton Hotel',
-    price: 'May 18 - May 22, 2020',
-  },
-  {
-    id: 3,
-    title: 'VANCOUVER DANCE-O-RAMA',
-    subtitle: 'Westin Bayshore Hotel',
-    price: 'Apr 30 - Mar 3, 2020',
-  },
-  {
-    id: 4,
-    title: 'FOXWOODS DANCE-O-RAMA',
-    subtitle: 'Foxwoods Resort & Casino',
-    price: 'May 28 - May 31, 2020',
-    image: require('../../../assets/images/event-sample-2.png'),
-  },
-  {
-    id: 5,
-    title: 'UNIQUE DANCE-O-RAMA',
-    subtitle: 'Hotel Irvine',
-    price: 'Jul 16 - Jul 19, 2020',
-  },
-  {
-    id: 6,
-    title: 'CIAO AMORE DANCE-O-RAMA',
-    subtitle: 'INTERCONTINENTAL HOTEL',
-    price: 'Aug 4 - Aug 9, 2020',
-  },
+const eventImages = [
+  require('../../../assets/images/event-sample.png'),
+  require('../../../assets/images/event-sample-2.png'),
+  require('../../../assets/images/event-sample-3.jpg'),
+  require('../../../assets/images/event-sample-4.jpg'),
+  require('../../../assets/images/event-sample-5.jpeg'),
 ];
 const styles = StyleSheet.create({
   container: {
@@ -221,8 +188,19 @@ const styles = StyleSheet.create({
 
 export default class EventsScreen extends React.Component {
   static propTypes = {
+    isLoadingData: PropTypes.bool.isRequired,
+    events: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+
+    dispatchFetchEvents: PropTypes.func.isRequired,
+
     navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
+
+  static currentImageToRenderIndex = 0;
+
+  componentWillMount() {
+    this.props.dispatchFetchEvents();
+  }
 
   goToEventSignUp = eventInfo => {
     this.props.navigation.navigate({
@@ -233,24 +211,24 @@ export default class EventsScreen extends React.Component {
 
   renderRow = rowData => {
     const cellViews = rowData.item.map(item => (
-      <TouchableOpacity key={item.id} onPress={() => this.goToEventSignUp(item)}>
+      <TouchableOpacity key={item._id} onPress={() => this.goToEventSignUp(item)}>
         <View style={styles.itemOneContainer}>
           <View style={styles.itemOneImageContainer}>
-            <Image style={styles.itemOneImage} source={item.image || require('../../../assets/images/icon.png')} />
+            <Image style={styles.itemOneImage} source={eventImages[(EventsScreen.currentImageToRenderIndex++) % eventImages.length]} />
           </View>
           <View style={styles.itemOneContent}>
             <Text style={styles.itemOneTitle} numberOfLines={1}>
-              {item.title}
+              {item.name}
             </Text>
             <Text
               style={styles.itemOneSubTitle}
               styleName="collapsible"
               numberOfLines={3}
             >
-              {item.subtitle}
+              {item.description}
             </Text>
             <Text style={styles.itemOnePrice} numberOfLines={1}>
-              {item.price}
+              {item.date}
             </Text>
           </View>
         </View>
@@ -258,19 +236,23 @@ export default class EventsScreen extends React.Component {
     ));
 
     return (
-      <View key={rowData.item[0].id} style={styles.itemOneRow}>
+      <View style={styles.itemOneRow}>
         {cellViews}
       </View>
     );
   };
 
   render() {
-    const groupedData = GridRow.groupByRows(dummyData, 2);
+    if (this.props.isLoadingData) {
+      return null;
+    }
+
+    const groupedData = GridRow.groupByRows(this.props.events, 2);
 
     return (
       <View style={styles.container}>
         <FlatList
-          keyExtractor={item => `${item[0] && item[0].id}`}
+          keyExtractor={item => item[0]._id}
           style={{
             backgroundColor: colors.whiteTwo,
             paddingHorizontal: 15,

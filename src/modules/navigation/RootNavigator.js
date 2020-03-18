@@ -28,24 +28,17 @@ const stackNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         title: 'Arthur Murray Franchisee',
         headerLeft: null,
-        headerRight: navigation.state.index === eventTabIndex ? (
-          <TouchableOpacity
-            onPress={() => navigation.navigate({ routeName: 'CreateEvent' })}
-            style={{ paddingRight: 25 }}
-          >
-            <ExpoIcon
-              name="playlist-add"
-              type="MaterialIcons"
-              color="white"
-            />
-          </TouchableOpacity>
-        ) : null,
+        headerRight:
+          navigation.state.index === eventTabIndex ? (
+            <TouchableOpacity
+              onPress={() => navigation.navigate({ routeName: 'CreateEvent' })}
+              style={{ paddingRight: 25 }}
+            >
+              <ExpoIcon name="playlist-add" type="MaterialIcons" color="white" />
+            </TouchableOpacity>
+          ) : null,
         headerBackground: (
-          <Image
-            style={{ flex: 1, width }}
-            source={headerBackground}
-            resizeMode="cover"
-          />
+          <Image style={{ flex: 1, width }} source={headerBackground} resizeMode="cover" />
         ),
       }),
     },
