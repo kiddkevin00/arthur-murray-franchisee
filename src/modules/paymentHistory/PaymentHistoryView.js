@@ -1,3 +1,4 @@
+import { balanceTransactionStatuses } from '../../utils/constants';
 import { colors, fonts } from '../../styles';
 import {
   StyleSheet,
@@ -208,7 +209,7 @@ export default class EventsScreen extends React.Component {
         />
         <Text style={styles.itemTwoTitle}>{item.description}</Text>
         <Text style={styles.itemTwoSubTitle}>{format(item.created * 1000, 'M/d/yyyy p')}</Text>
-        <Text style={styles.itemTwoPrice}>${item.amount} {item.status.toUpperCase()}</Text>
+        <Text style={styles.itemTwoPrice}>${item.amount} {item.status === balanceTransactionStatuses.available ? 'PAID' : 'PROCESSING'}</Text>
       </View>
     </TouchableOpacity>
   );

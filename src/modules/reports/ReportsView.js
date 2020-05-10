@@ -211,7 +211,7 @@ export default class ReportsScreen extends React.Component {
       onPress={() => this.goToDetail(item)}
     >
       <View style={styles.itemThreeSubContainer}>
-        <Image source={{ uri: null }} style={styles.itemThreeImage} />
+        <Image source={null} style={styles.itemThreeImage} />
         <View style={styles.itemThreeContent}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <Text style={styles.itemThreeBrand}>Week {item.submitted_weeks}</Text>

@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 const namespace = 'CreateEventState';
 
 // INITIAL STATES
-export const mainInitialState = {};
+const mainInitialState = {};
 const formInitialState = {
   name: {
     value: '',
@@ -32,7 +32,7 @@ const updateDataInitialState = {
 };
 
 // ACTION TYPES
-export const RESET_STATE = `${namespace}/RESET_STATE`;
+const RESET_STATE = `${namespace}/RESET_STATE`;
 
 // ACTION CREATOR
 export const createEventActionCreator = {

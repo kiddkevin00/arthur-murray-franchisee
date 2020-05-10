@@ -10,7 +10,7 @@ import { Alert } from 'react-native';
 const namespace = 'AuthState';
 
 // INITIAL STATES
-export const mainInitialState = {};
+const mainInitialState = {};
 const formInitialState = {
   email: {
     value: 'amdcworld+dcomp@gmail.com',
@@ -28,7 +28,7 @@ const updateDataInitialState = {
 };
 
 // ACTION TYPES
-export const RESET_STATE = `${namespace}/RESET_STATE`;
+const RESET_STATE = `${namespace}/RESET_STATE`;
 
 // ACTION CREATOR
 export const authActionCreator = {

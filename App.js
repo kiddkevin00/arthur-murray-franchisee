@@ -9,9 +9,17 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, YellowBox } from 'react-native';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import clone from 'lodash.clone';
+
+ignoreWarnings(
+  'Warning: componentWillReceiveProps has been renamed',
+  'Warning: componentWillUpdate has been renamed',
+  'Warning: componentWillMount has been renamed',
+  'Warning: Unsafe legacy lifecycles will not be called for components using new component APIs'
+);
 
 const loadResourcesAsync = async () => {
   await Promise.all([
@@ -87,5 +95,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 });
+
+function ignoreWarnings(...matchedMessages) {
+  YellowBox.ignoreWarnings([...matchedMessages]);
+
+  const _console = clone(console);
+
+  console.warn = message => {
+    if (!matchedMessages.find(matchedMsg => message.includes(matchedMsg))) {
+      _console.warn(message);
+    }
+  };
+}
 
 export { App as default };

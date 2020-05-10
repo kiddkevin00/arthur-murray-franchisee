@@ -8,7 +8,7 @@ import { Alert } from 'react-native';
 const namespace = 'PaymentState';
 
 // INITIAL STATES
-export const mainInitialState = {};
+const mainInitialState = {};
 const updateDataInitialState = {
   isUpdatingData: false,
   error: {
@@ -18,7 +18,7 @@ const updateDataInitialState = {
 };
 
 // ACTION TYPES
-export const RESET_STATE = `${namespace}/RESET_STATE`;
+const RESET_STATE = `${namespace}/RESET_STATE`;
 
 // ACTION CREATOR
 export const paymentActionCreator = {

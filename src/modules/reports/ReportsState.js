@@ -7,14 +7,14 @@ import { Alert } from 'react-native';
 const namespace = 'ReportsState';
 
 // INITIAL STATES
-export const mainInitialState = { reports: [] };
+const mainInitialState = { reports: [] };
 const loadDataInitialState = {
   isLoadingData: false,
 };
 
 // ACTION TYPES
-export const RESET_STATE = `${namespace}/RESET_STATE`;
-export const SET_DATA = `${namespace}/SET_DATA`;
+const RESET_STATE = `${namespace}/RESET_STATE`;
+const SET_DATA = `${namespace}/SET_DATA`;
 
 // ACTION CREATOR
 export const reportsActionCreator = {

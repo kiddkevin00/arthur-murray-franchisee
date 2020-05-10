@@ -2,7 +2,7 @@ export const initialState = {
   isFirstOpen: true,
 };
 
-export const SET_FIRST_OPEN = 'AppState/SET_FIRST_OPEN';
+const SET_FIRST_OPEN = 'AppState/SET_FIRST_OPEN';
 
 export function setAppOpened() {
   return {

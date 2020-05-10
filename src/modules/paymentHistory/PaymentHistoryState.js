@@ -7,7 +7,7 @@ import { Alert } from 'react-native';
 const namespace = 'PaymentHistoryState';
 
 // INITIAL STATES
-export const mainInitialState = {
+const mainInitialState = {
   myTransactions: [],
 };
 const loadDataInitialState = {
@@ -15,8 +15,8 @@ const loadDataInitialState = {
 };
 
 // ACTION TYPES
-export const RESET_STATE = `${namespace}/RESET_STATE`;
-export const SET_DATA = `${namespace}/SET_DATA`;
+const RESET_STATE = `${namespace}/RESET_STATE`;
+const SET_DATA = `${namespace}/SET_DATA`;
 
 // ACTION CREATOR
 export const paymentHistoryActionCreator = {
