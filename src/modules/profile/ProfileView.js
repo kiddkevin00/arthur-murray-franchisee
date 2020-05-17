@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ProfileScreen({ email, firstName, lastName}) {
+export default function ProfileScreen({ email, firstName, lastName }) {
   return (
     <View style={styles.container}>
       <ImageBackground

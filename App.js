@@ -18,7 +18,7 @@ ignoreWarnings(
   'Warning: componentWillReceiveProps has been renamed',
   'Warning: componentWillUpdate has been renamed',
   'Warning: componentWillMount has been renamed',
-  'Warning: Unsafe legacy lifecycles will not be called for components using new component APIs'
+  'Warning: Unsafe legacy lifecycles will not be called for components using new component APIs',
 );
 
 const loadResourcesAsync = async () => {

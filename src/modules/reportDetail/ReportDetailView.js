@@ -87,9 +87,9 @@ export default function ReportDetailScreen({ navigation, reports }) {
 
   const miscellaneousVsGrossLineData = reportsInAscendingOrder.map(report => ({ x: report.submitted_weeks, y: report.miscellaneousVsGross }));
   const bookedVsContactedLineData = reportsInAscendingOrder.map(report => ({ x: report.submitted_weeks, y: report.bookedVsContact }));
-  const showedVsOriginalSoldLineData = reportsInAscendingOrder.map(report => ({ x: report.submitted_weeks, y: report.showedVsOriginalSold}));
-  const extensionSoldLineData = reportsInAscendingOrder.map(report => ({ x: report.submitted_weeks, y: report.extension_sold}));
-  const weeklyLessonsSoldLineData = reportsInAscendingOrder.map(report => ({ x: report.submitted_weeks, y: report.weeklyLessonsSold}));
+  const showedVsOriginalSoldLineData = reportsInAscendingOrder.map(report => ({ x: report.submitted_weeks, y: report.showedVsOriginalSold }));
+  const extensionSoldLineData = reportsInAscendingOrder.map(report => ({ x: report.submitted_weeks, y: report.extension_sold }));
+  const weeklyLessonsSoldLineData = reportsInAscendingOrder.map(report => ({ x: report.submitted_weeks, y: report.weeklyLessonsSold }));
 
   return (
     <ScrollView style={styles.container} bounces={false}>
