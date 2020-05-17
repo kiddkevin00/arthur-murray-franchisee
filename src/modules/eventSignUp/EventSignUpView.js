@@ -14,31 +14,6 @@ import {
 import Carousel from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const recommendations = [
-  {
-    id: 0,
-    title: 'WORLD DANCE-O RAMA',
-    brand: 'Sheraton Hotel',
-    rating: '4.5',
-    price: 'Apr 30 - Mar 3, 2020',
-    badge: 'HOT',
-  },
-  {
-    id: 1,
-    title: 'VANCOUVER DANCE-O-RAMA',
-    brand: 'Westin Bayshore Hotel',
-    rating: '4.2',
-    price: 'May 28 - May 31, 2020',
-  },
-  {
-    id: 2,
-    title: 'FOXWOODS DANCE-O-RAMA',
-    brand: 'Foxwoods Resort & Casino',
-    price: 'Jul 16 - Jul 19, 2020',
-    rating: '4.8',
-    badge: 'HOT',
-  },
-];
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -111,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 8,
   },
-  recommendationTitle: {
+  recommendationName: {
     marginVertical: 5,
   },
   badge: {
@@ -143,7 +118,13 @@ const styles = StyleSheet.create({
 
 export default function EventSignUpScreen(props) {
   const _renderRecommendationCard = ({ item }) => (
-    <TouchableOpacity style={styles.recommendationItem}>
+    <TouchableOpacity
+      style={styles.recommendationItem}
+      onPress={() => props.navigation.replace({
+        routeName: 'EventSignUp',
+        params: { ...item },
+      })}
+    >
       <View style={styles.recommendationItemTopContainer}>
         {item.badge && (
           <View style={styles.recommendationItemBadge}>
@@ -155,7 +136,7 @@ export default function EventSignUpScreen(props) {
 
         <View style={styles.recommendationItemRating}>
           <Caption bold color={colors.yellow}>
-            {item.rating}
+            {(item.rating || 5.0).toFixed(1)}
           </Caption>
         </View>
       </View>
@@ -165,10 +146,10 @@ export default function EventSignUpScreen(props) {
         resizeMode="contain"
       />
       <View style={styles.recommendationBody}>
-        <Text color={colors.gray} style={styles.recommendationTitle}>
-          {item.title}
+        <Text color={colors.gray} style={styles.recommendationName}>
+          {item.name}
         </Text>
-        <Text color={colors.primaryLight}>{item.brand}</Text>
+        <Text color={colors.primaryLight}>{item.location || 'United State'}</Text>
         <View style={{ marginTop: 5, flexDirection: 'row' }}>
           {item.oldPrice && (
             <Text lineThrough color={colors.gray} style={{ marginRight: 10 }}>
@@ -176,14 +157,14 @@ export default function EventSignUpScreen(props) {
             </Text>
           )}
           <Text color={item.oldPrice ? colors.secondary : colors.gray}>
-            {item.price}
+            {item.dateInterval}
           </Text>
         </View>
       </View>
     </TouchableOpacity>
   );
-
   const itemParams = props.navigation.state.params;
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -194,7 +175,7 @@ export default function EventSignUpScreen(props) {
           }}
         >
           <Text style={{ color: colors.primaryLight }}>
-            {itemParams.title.split(' ')[0]}
+            {itemParams.location || 'United State'}
           </Text>
           <View
             style={{
@@ -205,10 +186,10 @@ export default function EventSignUpScreen(props) {
             }}
           >
             <Title bold color={colors.gray}>
-              {itemParams.title}
+              {itemParams.name}
             </Title>
             <Title bold color={colors.yellow}>
-              HOT
+              {(itemParams.rating || 5.0).toFixed(1)}
             </Title>
           </View>
         </View>
@@ -228,6 +209,9 @@ export default function EventSignUpScreen(props) {
           data={[
             require('../../../assets/images/event-sample.png'),
             require('../../../assets/images/event-sample-2.png'),
+            require('../../../assets/images/event-sample-3.jpg'),
+            require('../../../assets/images/event-sample-4.jpg'),
+            require('../../../assets/images/event-sample-5.jpeg'),
           ]}
         />
         {itemParams.badge && (
@@ -241,7 +225,7 @@ export default function EventSignUpScreen(props) {
       <View style={styles.bodyContainer}>
         <View style={styles.bodyHeading}>
           <Title color={colors.gray} size={23}>
-            {itemParams.price}
+            {itemParams.dateInterval}
           </Title>
           <Caption underline size={15} color={colors.lightGray}>
             Official Website
@@ -254,7 +238,7 @@ export default function EventSignUpScreen(props) {
               <Dropdown
                 borderColor={colors.grey}
                 color={colors.gray}
-                placeholder="Select Type"
+                placeholder="Select Admission Type"
                 items={[
                   'Early Bird Discount',
                   'General Admission',
@@ -263,9 +247,9 @@ export default function EventSignUpScreen(props) {
                   'Official Platinum',
                 ]}
                 onSelect={index =>
-                  props.setSelectedSizeIndex(parseInt(index, 10))
+                  props.setSelectedAdmissionTypeIndex(parseInt(index, 10))
                 }
-                selectedIndex={props.selectedSizeIndex}
+                selectedIndex={props.selectedAdmissionTypeIndex}
               />
             </View>
             <View style={styles.quantityDropdownContainer}>
@@ -311,11 +295,7 @@ export default function EventSignUpScreen(props) {
           <Title bold color={colors.lightGray} size={17}>
             Event Details
           </Title>
-          <Text style={styles.p}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.
-          </Text>
+          <Text style={styles.p}>{itemParams.description}</Text>
           <Text style={styles.p}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.
@@ -344,8 +324,8 @@ export default function EventSignUpScreen(props) {
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
-          data={recommendations}
-          keyExtractor={item => `${item.id}`}
+          data={props.events}
+          keyExtractor={item => item._id}
           renderItem={_renderRecommendationCard}
         />
       </View>

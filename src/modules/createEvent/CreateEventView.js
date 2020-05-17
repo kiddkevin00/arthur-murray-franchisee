@@ -1,6 +1,7 @@
 import { fonts, colors } from '../../styles';
 import { TextInput, Button } from '../../components';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
+
 import { format } from 'date-fns';
 import {
   StyleSheet,
@@ -125,7 +126,7 @@ export default class CreateEventScreen extends React.Component {
       {
         name: this.props.formName,
         description: this.props.formDescription,
-        date: this.props.formDate,
+        dateInterval: this.props.formDate,
       },
       this.props.navigation,
     );

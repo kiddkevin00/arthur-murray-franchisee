@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.8",
+    "version": "1.0.10",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -33,7 +33,7 @@
     },
     "android": {
       "package": "org.arthurmurrayfranchisee.app",
-      "versionCode": 8,
+      "versionCode": 10,
       "permissions": []
     }
   }

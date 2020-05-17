@@ -217,18 +217,18 @@ export default class EventsScreen extends React.Component {
             <Image style={styles.itemOneImage} source={eventImages[(EventsScreen.currentImageToRenderIndex++) % eventImages.length]} />
           </View>
           <View style={styles.itemOneContent}>
-            <Text style={styles.itemOneTitle} numberOfLines={1}>
+            <Text style={styles.itemOneTitle}>
               {item.name}
             </Text>
             <Text
               style={styles.itemOneSubTitle}
               styleName="collapsible"
-              numberOfLines={3}
+              numberOfLines={2}
             >
               {item.description}
             </Text>
-            <Text style={styles.itemOnePrice} numberOfLines={1}>
-              {item.date}
+            <Text style={styles.itemOnePrice}>
+              {item.dateInterval}
             </Text>
           </View>
         </View>
