@@ -1,7 +1,7 @@
 import PaymentFormView from './PaymentFormView';
 import { TextInput } from '../../components/';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -90,12 +90,14 @@ export default class PaymentScreen extends React.Component {
         </ScrollView>
 
         {/* Push the whole credit card form to the top if the screen is not big enough for the keyboard */}
-        <KeyboardSpacer
-          onToggle={() => {
-            // Scroll to the end of the payment form
-            setTimeout(() => this.scrollViewRef.scrollToEnd({ animated: true }), 0);
-          }}
-        />
+        {Platform.OS === 'ios' && (
+          <KeyboardSpacer
+            onToggle={() => {
+              // Scroll to the end of the payment form
+              setTimeout(() => this.scrollViewRef.scrollToEnd({ animated: true }), 0);
+            }}
+          />
+        )}
       </View>
     );
   }
