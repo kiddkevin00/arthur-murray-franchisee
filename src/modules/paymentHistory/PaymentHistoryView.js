@@ -209,7 +209,7 @@ export default class EventsScreen extends React.Component {
         />
         <Text style={styles.itemTwoTitle}>{item.description}</Text>
         <Text style={styles.itemTwoSubTitle}>{format(item.created * 1000, 'M/d/yyyy p')}</Text>
-        <Text style={styles.itemTwoPrice}>${item.amount} {item.status === balanceTransactionStatuses.available ? 'PAID' : 'PROCESSING'}</Text>
+        <Text style={styles.itemTwoPrice}>${parseFloat(item.amount / 100)} {item.status === balanceTransactionStatuses.available ? 'PAID' : 'PROCESSING'}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -1,5 +1,5 @@
 import { fonts, colors } from '../../styles';
-import { TextInput, Button } from '../../components/';
+import { TextInput, Button } from '../../components';
 import * as WebBrowser from 'expo-web-browser';
 import {
   StyleSheet,
@@ -78,9 +78,9 @@ export default class AuthScreen extends React.Component {
   static propTypes = {
     formEmail: PropTypes.string.isRequired,
     formPassword: PropTypes.string.isRequired,
+    isUpdatingData: PropTypes.bool.isRequired,
     isErrorVisible: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
-    isUpdatingData: PropTypes.bool.isRequired,
 
     dispatchResetState: PropTypes.func.isRequired,
     dispatchSetFormField: PropTypes.func.isRequired,
@@ -188,6 +188,7 @@ export default class AuthScreen extends React.Component {
               keyboardType="email-address"
               value={formEmail}
               onChange={this.handleChange.bind(this, 'email')}
+              textContentType="username"
             />
             <TextInput
               placeholder="Password"
@@ -195,6 +196,7 @@ export default class AuthScreen extends React.Component {
               secureTextEntry={true}
               value={formPassword}
               onChange={this.handleChange.bind(this, 'password')}
+              textContentType="password"
             />
 
             <Text style={styles.errorText}>

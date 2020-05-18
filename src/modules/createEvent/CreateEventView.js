@@ -76,9 +76,9 @@ export default class CreateEventScreen extends React.Component {
     formName: PropTypes.string.isRequired,
     formDescription: PropTypes.string.isRequired,
     formDate: PropTypes.string.isRequired,
+    isUpdatingData: PropTypes.bool.isRequired,
     isErrorVisible: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
-    isUpdatingData: PropTypes.bool.isRequired,
 
     dispatchResetState: PropTypes.func.isRequired,
     dispatchSetFormField: PropTypes.func.isRequired,
@@ -248,6 +248,22 @@ export default class CreateEventScreen extends React.Component {
                 caption="Create Event"
                 onPress={this.handleCreateEvent}
               />
+
+              {!this.state.isKeyboardVisible && (
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.goBack()}
+                  style={{ paddingTop: 30, flexDirection: 'row' }}
+                >
+                  <Text
+                    style={{
+                      color: colors.primary,
+                      fontFamily: fonts.primaryRegular,
+                    }}
+                  >
+                    Back to events
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </Animated.View>
         </View>

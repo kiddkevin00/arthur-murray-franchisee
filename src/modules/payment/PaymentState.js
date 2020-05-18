@@ -4,11 +4,18 @@ import buildUpdateDataReducer from '../../redux/builders/reducers/updateData';
 import { NavigationActions } from 'react-navigation';
 import { combineReducers } from 'redux';
 import { Alert } from 'react-native';
+import buildFormReducer from '../../redux/builders/reducers/form';
+import buildFormActionCreator from '../../redux/builders/actionCreators/form';
 
 const namespace = 'PaymentState';
 
 // INITIAL STATES
 const mainInitialState = {};
+const formInitialState = {
+  royaltyAmount: {
+    value: '',
+  },
+};
 const updateDataInitialState = {
   isUpdatingData: false,
   error: {
@@ -22,6 +29,7 @@ const RESET_STATE = `${namespace}/RESET_STATE`;
 
 // ACTION CREATOR
 export const paymentActionCreator = {
+  ...buildFormActionCreator(namespace),
   ...buildUpdateDataActionCreator(namespace),
 
   resetMainState() {
@@ -34,11 +42,13 @@ export const paymentActionCreator = {
     return dispatch => {
       dispatch(this.resetMainState());
 
+      dispatch(this.resetFormState());
+
       dispatch(this.resetUpdateDataState());
     };
   },
 
-  pay(cardData, nameOnCard, navigation) {
+  pay(cardData, nameOnCard, amountToPay, navigation) {
     return async (dispatch, getState) => {
       try {
         dispatch(this.updateDataRequest());
@@ -54,8 +64,10 @@ export const paymentActionCreator = {
             lastName: getState().me.main.last_name,
             studio: getState().me.main.studio && getState().me.main.studio.name,
           },
-          chargeAmount: 999, // Will be gathered from `getState().reports[0].revenue`.
+          chargeAmount: parseFloat(amountToPay) * 100,
         });
+
+        dispatch(this.resetFormState());
 
         Alert.alert('Payment Successful', 'Your payment has been successfully processed!');
 
@@ -85,5 +97,6 @@ const mainReducer = (state = mainInitialState, action) => {
 
 export default combineReducers({
   main: mainReducer,
+  form: buildFormReducer(formInitialState, namespace),
   updateData: buildUpdateDataReducer(updateDataInitialState, namespace),
 });

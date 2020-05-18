@@ -63,7 +63,7 @@ export default function ReportDetailScreen({ navigation, reports }) {
   //}
 
   const { originalSoldVsExtensionSold, lessonsTaughtVsLessonsSold, submitted_weeks } = navigation.state.params;
-  const reportsInAscendingOrder = ([...reports]).reverse().filter(report => report.submitted_weeks <= submitted_weeks);
+  const reportsInAscendingOrder = ([...reports]).reverse().filter(report => report.submitted_weeks <= Math.max(submitted_weeks, 5)); // Need at least 5 records to removing floating number on x axis
   const originalSoldVsExtensionSoldPieData = [
     {
       x: 'Extension',
