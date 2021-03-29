@@ -2,15 +2,15 @@ import AppView from './src/modules/AppViewContainer';
 import { store, persistor } from './src/redux/store';
 //import { colors } from './src/styles';
 import colors from './src/styles/colors'; // TODO
-import { Root } from 'native-base';
+import { PersistGate } from 'redux-persist/integration/react';
 import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { View, ActivityIndicator, StyleSheet, YellowBox } from 'react-native';
 import React, { useState } from 'react';
+import { View, ActivityIndicator, StyleSheet, LogBox } from 'react-native';
+import { Root } from 'native-base';
 import PropTypes from 'prop-types';
 import clone from 'lodash.clone';
 
@@ -20,6 +20,15 @@ ignoreWarnings(
   'Warning: componentWillMount has been renamed',
   'Warning: Unsafe legacy lifecycles will not be called for components using new component APIs',
 );
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+});
 
 const loadResourcesAsync = async () => {
   await Promise.all([
@@ -87,20 +96,12 @@ App.defaultProps = {
   skipLoadingScreen: undefined,
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-});
-
 function ignoreWarnings(...matchedMessages) {
-  YellowBox.ignoreWarnings([...matchedMessages]);
+  LogBox.ignoreAllLogs([...matchedMessages]);
 
   const _console = clone(console);
 
+  /* eslint-disable no-console */
   console.warn = message => {
     if (!matchedMessages.find(matchedMsg => message.includes(matchedMsg))) {
       _console.warn(message);
